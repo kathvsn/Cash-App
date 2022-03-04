@@ -10,11 +10,6 @@ import javax.swing.*;
 public class serverSearch extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	public static void main(String[] args) throws InterruptedException {
-		serverSearch frame = new serverSearch();
-		frame.setVisible(true);
-	}
-	
 	public serverSearch(){
 
 		setSize(1000, 600);
@@ -40,18 +35,21 @@ public class serverSearch extends JFrame {
 	    greenPanel.setLayout(null);
 	  
 	    
+	    InetAddress ipAddress = null;
+	    try{
+	      ipAddress = InetAddress.getLocalHost();
+	    }catch (UnknownHostException el){
+	      el.printStackTrace();
+	    }
+
+	    String ip = ipAddress.getHostAddress();
+
 	    // display IP and ports
-	    JTextArea displayIP = new JTextArea();
+	    String display = "IP: " + ip + "        Listening on Port #: 8888";
+	    JTextArea displayIP = new JTextArea(display);
 	    displayIP.setBounds(10, 100, 980, 30);
 		displayIP.setEditable(false);
 		contentPane.add(displayIP);
-		
-		InetAddress ipAddress = null;
-		try{
-			ipAddress = InetAddress.getLocalHost();
-		}catch (UnknownHostException el){
-			el.printStackTrace();
-		}
 	 
 	    // search bar: filter activity
 	    JTextField searchField = new JTextField("Search for user (Name, Cashtag, Email, Phone Number)");
@@ -81,6 +79,7 @@ public class serverSearch extends JFrame {
 		JButton nameBtn = new JButton("Name");
 		nameBtn.setBounds(700, 200, 150, 25);
 		nameBtn.setBorderPainted(false);
+		nameBtn.setBackground(new Color(28,255,79));
 		nameBtn.setOpaque(false);
 		nameBtn.setForeground(new Color(83,71,71));
         nameBtn.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 22));
@@ -89,6 +88,7 @@ public class serverSearch extends JFrame {
         JButton tagBtn = new JButton("Cashtag");
         tagBtn.setBounds(710, 240, 150, 25);
 		tagBtn.setBorderPainted(false);
+		tagBtn.setBackground(new Color(28,255,79));
 		tagBtn.setOpaque(false);
 		tagBtn.setForeground(new Color(147,141,141));
 		tagBtn.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 22));
@@ -97,6 +97,7 @@ public class serverSearch extends JFrame {
         JButton locationBtn = new JButton("Location");
         locationBtn.setBounds(710, 290, 150, 25);
         locationBtn.setBorderPainted(false);
+        locationBtn.setBackground(new Color(28,255,79));
         locationBtn.setOpaque(false);
         locationBtn.setForeground(new Color(147,141,141));
 		locationBtn.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 22));
@@ -105,6 +106,7 @@ public class serverSearch extends JFrame {
         JButton accAgeBtn = new JButton("Account Age");
         accAgeBtn.setBounds(710, 340, 200, 25);
 		accAgeBtn.setBorderPainted(false);
+		accAgeBtn.setBackground(new Color(28,255,79));
 		accAgeBtn.setOpaque(false);
 		accAgeBtn.setForeground(new Color(147,141,141));
 		accAgeBtn.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 22));
@@ -112,6 +114,7 @@ public class serverSearch extends JFrame {
         
         JButton mostReqBtn = new JButton("Most Requested");
         mostReqBtn.setBounds(700, 390, 250, 25);
+        mostReqBtn.setBackground(new Color(28,255,79));
         mostReqBtn.setBorderPainted(false);
         mostReqBtn.setOpaque(false);
         mostReqBtn.setForeground(new Color(147,141,141));
@@ -120,6 +123,7 @@ public class serverSearch extends JFrame {
         
         JButton mostPaidBtn = new JButton("Most Requested");
         mostPaidBtn.setBounds(700, 440, 250, 25);
+        mostPaidBtn.setBackground(new Color(28,255,79));
         mostPaidBtn.setBorderPainted(false);
         mostPaidBtn.setOpaque(false);
         mostPaidBtn.setForeground(new Color(147,141,141));
@@ -174,7 +178,7 @@ public class serverSearch extends JFrame {
                        String title = "Cash App Server | " + str; //concatenate the time with the title
                        setTitle(title);
 
-                       // sleep for 1 secondxw
+                       // sleep for 1 second
                        sleep(1000L); 
                        }
                      catch (InterruptedException e) {}//don't know what it does here cuz ide says so
