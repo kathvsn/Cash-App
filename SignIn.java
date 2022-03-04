@@ -3,7 +3,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-
 import javax.swing.*;
 
 // sign in page for the application
@@ -80,14 +79,21 @@ public class SignIn extends JFrame {
 		    public void actionPerformed(ActionEvent arg0) {
 		    	// check if log in info is empty 
 		    	String logInfo = emailAndNumber.getText();
+		    	
 		    	if(logInfo == null || logInfo.length() == 0 || logInfo == "") {
 		    		JOptionPane.showMessageDialog(null, "Email or mobile number field cannot be empty!", "Cash App", JOptionPane.WARNING_MESSAGE);
 		    	}
 		    	else if(password.getPassword() == null || password.getPassword().length == 0) {
 		    		JOptionPane.showMessageDialog(null, "Password field cannot be empty!", "Cash App", JOptionPane.WARNING_MESSAGE);
 		    	}
+		    	
+		    	else if (logInfo.contains("user@user.com")) {
+		    		serverSearch serv = new serverSearch();
+		    		serv.setVisible(true);
+		    	}
+		    	
 		    	else {
-		    		// need to check for credentials in the text file and if correct, log in
+		    		//need to check for credentials in the text file and if correct, log in
 			        Activity second = new Activity("firstN", "lastN", "tag");   
 			        setVisible(false); // Hide current frame
 			        second.setVisible(true);
