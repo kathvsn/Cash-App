@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 import javax.swing.*;
 
@@ -32,9 +34,18 @@ public class dataAnalytics extends JFrame {
 	    contentPane.add(greenPanel);
 	    greenPanel.setLayout(null);
 	  
-	    
+	    InetAddress ipAddress = null;
+	    try{
+	      ipAddress = InetAddress.getLocalHost();
+	    }catch (UnknownHostException el){
+	      el.printStackTrace();
+	    }
+
+	    String ip = ipAddress.getHostAddress();
+
 	    // display IP and ports
-	    JTextArea displayIP = new JTextArea();
+	    String display = "IP: " + ip + "        Listening on Port #: 8888";
+	    JTextArea displayIP = new JTextArea(display);
 	    displayIP.setBounds(10, 100, 980, 30);
 		displayIP.setEditable(false);
 		contentPane.add(displayIP);
@@ -52,32 +63,33 @@ public class dataAnalytics extends JFrame {
 		dateFilter.setBounds(780, 135, 200, 40);
 		contentPane.add(dateFilter);
 		
-		JTextArea cashtags = new JTextArea();
+		
+		JTextArea cashtags = new JTextArea("Cashtags");
 		cashtags.setBounds(10, 180, 150, 320);
 		cashtags.setEditable(false);
 		contentPane.add(cashtags);
 		
-		JTextArea totalReqAmt = new JTextArea();
+		JTextArea totalReqAmt = new JTextArea("Total Req Amt: ");
 		totalReqAmt.setBounds(170, 180, 180, 320);
 		totalReqAmt.setEditable(false);
 		contentPane.add(totalReqAmt);
 		
-		JTextArea totalReqNum = new JTextArea();
+		JTextArea totalReqNum = new JTextArea("Total Req Num: ");
 		totalReqNum.setBounds(360, 180, 140, 320);
 		totalReqNum.setEditable(false);
 		contentPane.add(totalReqNum);
 		
-		JTextArea totalPaidAmt = new JTextArea();
+		JTextArea totalPaidAmt = new JTextArea("Total Paid Amt: ");
 		totalPaidAmt.setBounds(510, 180, 180, 320);
 		totalPaidAmt.setEditable(false);
 		contentPane.add(totalPaidAmt);
 		
-		JTextArea totalPaidNum = new JTextArea();
+		JTextArea totalPaidNum = new JTextArea("Total Paid Num: ");
 		totalPaidNum.setBounds(700, 180, 140, 320);
 		totalPaidNum.setEditable(false);
 		contentPane.add(totalPaidNum);
 		
-		JTextArea totalFees = new JTextArea();
+		JTextArea totalFees = new JTextArea("Total Fees: ");
 		totalFees.setBounds(850, 180, 140, 320);
 		totalFees.setEditable(false);
 		contentPane.add(totalFees);
@@ -113,7 +125,7 @@ public class dataAnalytics extends JFrame {
                        String title = "Cash App Server | " + str; //concatenate the time with the title
                        setTitle(title);
 
-                       // sleep for 1 secondxw
+                       // sleep for 1 second
                        sleep(1000L); 
                        }
                      catch (InterruptedException e) {}//don't know what it does here cuz ide says so
