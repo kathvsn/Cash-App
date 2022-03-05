@@ -72,6 +72,7 @@ public class SignIn extends JFrame {
 		signInBtn.setBackground(new Color(28,236,79));
 		signInBtn.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 		signInBtn.setForeground(Color.WHITE);
+		signInBtn.setMnemonic(KeyEvent.VK_ENTER);
 		contentPane.add(signInBtn);
 		
 	    // Access next frame
