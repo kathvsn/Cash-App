@@ -36,22 +36,22 @@ public class CreateAccount extends JFrame {
 		contentPane.add(addBankDetails);
 		
 		// textfields for card/bank information
-		JTextField cardNumber = new JTextField();
+		JTextField cardNumber = new JTextField("Card Number");
 		cardNumber.setToolTipText("Enter your card number.");
 		cardNumber.setBounds(130, 70, 300, 40);
 		contentPane.add(cardNumber);
 		
-		JTextField cardDate = new JTextField();
+		JTextField cardDate = new JTextField("MM/YYYY");
 		cardDate.setToolTipText("Enter your card date as MM/YYYY.");
 		cardDate.setBounds(130, 110, 100, 40);
 		contentPane.add(cardDate);
 		
-		JTextField cardCVV = new JTextField();
+		JTextField cardCVV = new JTextField("CVV");
 		cardCVV.setToolTipText("Enter your card security number.");
 		cardCVV.setBounds(230, 110, 100, 40);
 		contentPane.add(cardCVV);
 		
-		JTextField zip = new JTextField();
+		JTextField zip = new JTextField("Zipcode");
 		zip.setToolTipText("Enter your 5-digit zipcode.");
 		zip.setBounds(330, 110, 100, 40);
 		contentPane.add(zip);
@@ -81,12 +81,12 @@ public class CreateAccount extends JFrame {
 		contentPane.add(addressLabel);
 		
 		// textfields for card/bank information
-		JTextField address = new JTextField();
+		JTextField address = new JTextField("Address");
 		address.setToolTipText("Enter your billing address.");
 		address.setBounds(130, 260, 300, 40);
 		contentPane.add(address);
 		
-		JTextField city = new JTextField();
+		JTextField city = new JTextField("City/Town");
 		city.setToolTipText("Enter your city or town.");
 		city.setBounds(130, 300, 100, 40);
 		contentPane.add(city);
@@ -97,7 +97,7 @@ public class CreateAccount extends JFrame {
 		states.setBounds(230, 300, 100, 40);
 		contentPane.add(states);
 		
-		JTextField zipAdd = new JTextField();
+		JTextField zipAdd = new JTextField("Zipcode");
 		zipAdd.setToolTipText("Enter your 5-digit zipcode.");
 		zipAdd.setBounds(330, 300, 100, 40);
 		contentPane.add(zipAdd);
@@ -186,7 +186,7 @@ public class CreateAccount extends JFrame {
 		
 		// save information and head to activity page
 		JButton saveInfo = new JButton("Save Information");
-		saveInfo.setBounds(350, 540, 300, 30);
+		saveInfo.setBounds(330, 520, 300, 30);
 		saveInfo.setBorderPainted(false);
 		saveInfo.setOpaque(true);
 		saveInfo.setBackground(new Color(28,236,79));
@@ -277,7 +277,7 @@ public class CreateAccount extends JFrame {
 		
 		// return to sign in page
 		JButton back = new JButton("Back");
-		back.setBounds(10, 540, 110, 30);
+		back.setBounds(30, 520, 110, 30);
 		back.setBorderPainted(false);
 		back.setOpaque(true);
 		back.setBackground(new Color(28,236,79));
@@ -299,7 +299,7 @@ public class CreateAccount extends JFrame {
 		
 		// help button
 		JButton help = new JButton("Help");
-		help.setBounds(880, 540, 110, 30);
+		help.setBounds(860, 520, 110, 30);
 		help.setBorderPainted(false);
 		help.setOpaque(true);
 		help.setBackground(new Color(28,236,79));
