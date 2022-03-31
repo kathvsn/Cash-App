@@ -9,6 +9,8 @@ import javax.swing.*;
 public class SignIn extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
+	public static socketUtils test;
+	
 	public static void main(String[] args) throws InterruptedException {
 		SignIn frame = new SignIn();
 		frame.setVisible(true);
@@ -51,28 +53,39 @@ public class SignIn extends JFrame {
 		JLabel titleLabel = new JLabel("Cash App");
 		titleLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 45));
 		titleLabel.setForeground(Color.WHITE);
-		titleLabel.setBounds(400, 150, 400, 100);
+		titleLabel.setBounds(400, 120, 400, 100);
 		contentPane.add(titleLabel);
+		
+		JLabel signInLabel = new JLabel("Email or mobile number:");
+		signInLabel.setFont(new Font("Arial Rounded MT", Font.PLAIN, 12));
+		signInLabel.setBounds(352, 230, 300, 15);
+		signInLabel.setForeground(Color.WHITE);
+		contentPane.add(signInLabel);
+
+		JLabel pwLabel = new JLabel("Password:");
+		pwLabel.setFont(new Font("Arial Rounded MT", Font.PLAIN, 12));
+		pwLabel.setBounds(352, 290, 300, 15);
+		pwLabel.setForeground(Color.WHITE);
+		contentPane.add(pwLabel);
 		
 		// textfields for sign in information
 		JTextField emailAndNumber = new JTextField();
 		JPasswordField password = new JPasswordField();
 		emailAndNumber.setBounds(350, 250, 300, 40);
 		emailAndNumber.setToolTipText("Enter your email or mobile number.");
-		password.setBounds(350, 300, 300, 40);
+		password.setBounds(350, 310, 300, 40);
 		password.setToolTipText("Enter your password.");
 		contentPane.add(emailAndNumber);
 		contentPane.add(password);
 		
 		// sign in button
 		JButton signInBtn = new JButton("Sign In");
-		signInBtn.setBounds(350, 350, 300, 40);
+		signInBtn.setBounds(350, 370, 300, 40);
 		signInBtn.setBorderPainted(false);
 		signInBtn.setOpaque(true);
 		signInBtn.setBackground(new Color(28,236,79));
 		signInBtn.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 		signInBtn.setForeground(Color.WHITE);
-		signInBtn.setMnemonic(KeyEvent.VK_ENTER);
 		contentPane.add(signInBtn);
 		
 	    // Access next frame
@@ -91,12 +104,26 @@ public class SignIn extends JFrame {
 		    	else if (logInfo.contains("user@user.com")) {
 		    		serverSearch serv = new serverSearch();
 		    		serv.setVisible(true);
+		    		test = new socketUtils();
+		    		
+		    		boolean connected = test.socketConnect();
+		    		
+		    		if(connected) {
+		    			test.sendMessage("Admin of Cash App connected.");
+		    		}
 		    	}
 		    	
 		    	else {
 		    		//need to check for credentials in the text file and if correct, log in
 			        Activity second = new Activity("firstN", "lastN", "tag");   
 			        setVisible(false); // Hide current frame
+			        test = new socketUtils();
+		    		
+		    		boolean connected = test.socketConnect();
+		    		
+		    		if(connected) {
+		    			test.sendMessage("User connected.");
+		    		}
 			        second.setVisible(true);
 		    	}
 		    }
@@ -105,7 +132,7 @@ public class SignIn extends JFrame {
 
 		// Create account in button
 		JButton Createacc = new JButton("New Account");
-        Createacc.setBounds(340, 400, 150, 40);
+        Createacc.setBounds(340, 420, 150, 40);
         Createacc.setBorderPainted(false);
         Createacc.setOpaque(false);
         Createacc.setBackground(new Color(28,236,79));
@@ -122,7 +149,7 @@ public class SignIn extends JFrame {
 
         //Forget pass in button
         JButton Forgetpass = new JButton("Forgot Password");
-        Forgetpass.setBounds(510, 400, 140, 40);
+        Forgetpass.setBounds(510, 420, 140, 40);
         Forgetpass.setBorderPainted(false);
         Forgetpass.setOpaque(false);
         Forgetpass.setBackground(new Color(28,255,79));
@@ -132,7 +159,7 @@ public class SignIn extends JFrame {
         
         // help button
 		JButton help = new JButton("Help");
-		help.setBounds(10, 540, 110, 30);
+		help.setBounds(30, 520, 110, 30);
 		help.setBorderPainted(false);
 		help.setOpaque(true);
 		help.setBackground(new Color(28,236,79));
@@ -152,7 +179,7 @@ public class SignIn extends JFrame {
 				}
 			}
 		});
-		exitButton.setBounds(880, 540, 110, 30);
+		exitButton.setBounds(860, 520, 110, 30);
 		exitButton.setBorderPainted(false);
 		exitButton.setOpaque(true);
 		exitButton.setBackground(new Color(28,236,79));
