@@ -200,3 +200,4 @@ public class Activity extends JFrame {
           };
           refreshTitleBar.start();
     }
+}
