@@ -267,8 +267,8 @@ public class CreateAccount extends JFrame {
 		    		// convert char[] to string
 		    		String pword =  String.valueOf(pass.getPassword());
 		    		// pass credentials to hash the password
-		    		passwordHash creds = new passwordHash(fName.getText(), lName.getText(), tag.getText(), emNum.getText(), pword);
-			        Activity second = new Activity(fName.getText(), lName.getText(), tag.getText());   
+		    		//passwordHash creds = new passwordHash(fName.getText(), lName.getText(), tag.getText(), emNum.getText(), pword);
+			        Activity second = new Activity(fName.getText(), lName.getText(), tag.getText(),true);   
 			        setVisible(false); // Hide current frame
 			        second.setVisible(true);
 		    	}
@@ -308,7 +308,7 @@ public class CreateAccount extends JFrame {
 		contentPane.add(help);
 		help.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) {
-		    	Help next = new Help();   
+		    	Help next = new Help(2);   
 			    setVisible(false); // hide current frame
 			    next.setVisible(true);	
 		    }
