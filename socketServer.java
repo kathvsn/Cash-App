@@ -1,9 +1,5 @@
 import java.io.IOException;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.net.BindException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -12,17 +8,12 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.List;
 import java.util.Vector;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 
 public class socketServer implements Runnable
 {
@@ -221,13 +212,12 @@ public class socketServer implements Runnable
 	         			    		        	
 	           Thread.sleep(500);
 	           
-	        }    // end while loop
-	
-            keyString = ipString + ":" + threadId;
-	      
-	      
+	        }// end while loop
+	        
+	        keyString = ipString + ":" + threadId;
+	        
 	        numOfConnections--;
-
+	        
 	        // close client socket
 	        csocket.close();
 	       
