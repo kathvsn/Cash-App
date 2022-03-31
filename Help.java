@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class Help extends JFrame {
 	private static final long serialVersionUID = 1L;
-	public Help() {
+	public Help(int fmnum) {
 		setSize(1000, 600);
 		JPanel Help= new JPanel();
 		setContentPane(Help);
@@ -136,9 +136,21 @@ public class Help extends JFrame {
 			    public void actionPerformed(ActionEvent arg0) {
 			    	int result = JOptionPane.showConfirmDialog(null,"Do you really want to go to the previous page?", "Back", JOptionPane.INFORMATION_MESSAGE);
 			    	if (result==JOptionPane.OK_OPTION) {
-			    		Activity second = new Activity("firstN", "lastN", "tag");   
-				        setVisible(false); //Hide current frame
-				        second.setVisible(true);	
+			    		if (fmnum == 1) {
+			    			SignIn second = new SignIn();   
+				        	setVisible(false); //Hide current frame
+				        	second.setVisible(true);
+			    		}
+			    		else if (fmnum == 2) {
+			    			CreateAccount second = new CreateAccount();   
+				        	setVisible(false); //Hide current frame
+				        	second.setVisible(true);
+			    		}
+			    		else if (fmnum == 3) {
+			    			Activity second = new Activity("A","B","C",false);   
+				        	setVisible(false); //Hide current frame
+				        	second.setVisible(true);
+			    		}
 			    	}
 			    }
 			});
