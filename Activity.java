@@ -106,15 +106,15 @@ public class Activity extends JFrame {
         
         // active button is highlighted in white while the rest are light green
         activity.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent arg0) {
-			    setVisible(true); 
-			    activity.setForeground(Color.WHITE);
-			    newTrans.setForeground(new Color(101,210,69));
-			    settings.setForeground(new Color(101,210,69));
-			    help.setForeground(new Color(101,210,69));
+		public void actionPerformed(ActionEvent arg0) {
+			setVisible(true); 
+			activity.setForeground(Color.WHITE);
+			newTrans.setForeground(new Color(101,210,69));
+			settings.setForeground(new Color(101,210,69));
+			help.setForeground(new Color(101,210,69));
 			    
-		    }
-		});
+		}
+	});
         newTrans.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) {
 			    setVisible(false); 
@@ -161,25 +161,25 @@ public class Activity extends JFrame {
 	    pendingLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
 	    pendingLabel.setForeground(new Color(147,141,141));
 	    pendingLabel.setBounds(330, 70, 400, 100);
-		contentPane.add(pendingLabel);
-		JTextArea pendingTransactions = new JTextArea();
-		pendingTransactions.setBounds(320, 140, 680, 100);
-		pendingTransactions.setEditable(false);
-		contentPane.add(pendingTransactions);
+	    contentPane.add(pendingLabel);
+	    JTextArea pendingTransactions = new JTextArea();
+	    pendingTransactions.setBounds(320, 140, 680, 100);
+	    pendingTransactions.setEditable(false);
+	    contentPane.add(pendingTransactions);
 	   
 	    // completed label + uneditable text field
-		JLabel completedLabel = new JLabel("COMPLETED");
-		completedLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
-		completedLabel.setForeground(new Color(147,141,141));
-		completedLabel.setBounds(330, 270, 400, 100);
-		contentPane.add(completedLabel);
-		JTextArea completedTransactions = new JTextArea();
-		completedTransactions.setBounds(320, 340, 680, 100);
-		completedTransactions.setEditable(false);
-		contentPane.add(completedTransactions);
-		
-		// clock
-        Thread refreshTitleBar = new Thread(){
+	    JLabel completedLabel = new JLabel("COMPLETED");
+	    completedLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
+	    completedLabel.setForeground(new Color(147,141,141));
+	    completedLabel.setBounds(330, 270, 400, 100);
+	    contentPane.add(completedLabel);
+	    JTextArea completedTransactions = new JTextArea();
+	    completedTransactions.setBounds(320, 340, 680, 100);
+	    completedTransactions.setEditable(false);
+	    contentPane.add(completedTransactions);
+	
+	    // clock
+           Thread refreshTitleBar = new Thread(){
             public void run(){ 
                  while (true){//Keep running while true (aka always)
                      try {
@@ -200,4 +200,3 @@ public class Activity extends JFrame {
           };
           refreshTitleBar.start();
     }
-}
