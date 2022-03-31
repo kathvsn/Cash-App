@@ -107,7 +107,6 @@ public class SignIn extends JFrame {
 		    		test = new socketUtils();
 		    		
 		    		boolean connected = test.socketConnect();
-		    		
 		    		if(connected) {
 		    			test.sendMessage("Admin of Cash App connected.");
 		    		}
@@ -115,15 +114,13 @@ public class SignIn extends JFrame {
 		    	
 		    	else {
 		    		//need to check for credentials in the text file and if correct, log in
-			        Activity second = new Activity("firstN", "lastN", "tag");   
+			        Activity second = new Activity("firstN", "lastN", "tag",true);   
 			        setVisible(false); // Hide current frame
-			        test = new socketUtils();
-		    		
-		    		boolean connected = test.socketConnect();
-		    		
-		    		if(connected) {
-		    			test.sendMessage("User connected.");
-		    		}
+			        //test = new socketUtils();
+		    		//boolean connected = test.socketConnect();
+		    		//if(connected) {
+		    			//test.sendMessage("User connected.");
+		    		//}
 			        second.setVisible(true);
 		    	}
 		    }
@@ -167,10 +164,19 @@ public class SignIn extends JFrame {
 		help.setForeground(Color.WHITE);
 		contentPane.add(help);
 		
+		help.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				setVisible(false);
+				Help help = new Help(1);
+				help.setVisible(true);
+			}
+		});
+		
 		// adding exit button
 		JButton exitButton = new JButton("EXIT");
 		exitButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
+
 				int result = JOptionPane.showConfirmDialog(null, "Do you really want to exit Cash App?", "Exit Application", JOptionPane.INFORMATION_MESSAGE);
 				//JOptionPane.INFORMATION_MESSAGE: Yes, No, Exit
 				if(result == JOptionPane.OK_OPTION){
