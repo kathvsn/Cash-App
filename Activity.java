@@ -8,8 +8,18 @@ import javax.swing.*;
 public class Activity extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	public Activity(String firstN, String lastN, String tag){
+	public static socketUtils test;
+	
+	public Activity(String firstN, String lastN, String tag, boolean connect){
 
+		if (connect) {
+			test = new socketUtils();
+    		boolean connected = test.socketConnect();
+    		if(connected) {
+    			test.sendMessage("User connected.");
+    		}
+		}
+		
 		setSize(1000, 600);
 		JPanel contentPane = new JPanel();
 		setContentPane(contentPane);
@@ -35,9 +45,11 @@ public class Activity extends JFrame {
 		    		SignIn second = new SignIn();   
 			        setVisible(false); //Hide current frame
 			        second.setVisible(true);	
+		    		test.sendMessage("QUIT");
 		    	}
 		    }
 		});
+		
 	    
 		// green side panel
 		JPanel greenPanel = new JPanel();
@@ -139,7 +151,7 @@ public class Activity extends JFrame {
 		});
         help.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) { 
-			    Help helpFrame = new Help();   
+			    Help helpFrame = new Help(3);   
 		        setVisible(false); // Hide current frame
 		        helpFrame.setVisible(true);
 			    help.setForeground(Color.WHITE);
