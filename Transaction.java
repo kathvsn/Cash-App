@@ -108,7 +108,7 @@ public class Transaction extends JFrame {
         activity.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) {
 			    setVisible(false); 
-			    Activity act = new Activity(firstN, lastN, tag);
+			    Activity act = new Activity(firstN, lastN, tag, true);
 			    act.setVisible(true);
 			    activity.setForeground(Color.WHITE);
 			    newTrans.setForeground(new Color(101,210,69));
