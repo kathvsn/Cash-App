@@ -1,4 +1,4 @@
-import java.awt.Color;
+mport java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -148,6 +148,11 @@ public class Help extends JFrame {
 			    		}
 			    		else if (fmnum == 3) {
 			    			Activity second = new Activity("A","B","C",false);   
+				        	setVisible(false); //Hide current frame
+				        	second.setVisible(true);
+			    		}
+			    		else if (fmnum == 4) {
+			    			Transaction second = new Transaction("A","B","C");   
 				        	setVisible(false); //Hide current frame
 				        	second.setVisible(true);
 			    		}
