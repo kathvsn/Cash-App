@@ -184,20 +184,26 @@ public class socketServer implements Runnable
 	              if (clientString.contains("quit"))
 	              {
 	                 session_done = true;
-	                 fileIO fio = new fileIO("serverBacklog.txt");
-	                 fio.wrData(serverSearch.incoming.getText());
+	                 if(numOfConnections - 1 == 0) {
+	                	 fileIO fio = new fileIO("serverBacklog.txt");
+		                 fio.wrData(serverSearch.incoming.getText());
+	                 }
 	              }
 	              else if (clientString.contains("QUIT"))
 	              {
 	                 session_done = true;
-	                 fileIO fio = new fileIO("serverBacklog.txt");
-	                 fio.wrData(serverSearch.incoming.getText());
+	                 if(numOfConnections - 1 == 0) {
+	                	 fileIO fio = new fileIO("serverBacklog.txt");
+		                 fio.wrData(serverSearch.incoming.getText());
+	                 }
 	              }
 	              else if (clientString.contains("Quit"))
 	              {
 	                 session_done = true;
-	                 fileIO fio = new fileIO("serverBacklog.txt");
-	                 fio.wrData(serverSearch.incoming.getText());
+	                 if(numOfConnections - 1 == 0) {
+	                	 fileIO fio = new fileIO("serverBacklog.txt");
+		                 fio.wrData(serverSearch.incoming.getText());
+	                 }
 	              }
 	              else if (clientString.contains("Date>"))
 	              {
