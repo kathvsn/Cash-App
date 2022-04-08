@@ -7,6 +7,8 @@ import javax.swing.*;
 
 public class Transaction extends JFrame {
 	private static final long serialVersionUID = 1L;
+	public static socketUtils test;
+	public boolean immediateQuit = false;
 	
 	public Transaction(String firstN, String lastN, String tag){
 
@@ -34,7 +36,7 @@ public class Transaction extends JFrame {
 		    	if (result==JOptionPane.OK_OPTION) {
 		    		SignIn second = new SignIn();   
 			        setVisible(false); //Hide current frame
-			        second.setVisible(true);	
+			        second.setVisible(true);
 		    	}
 		    }
 		});
@@ -108,7 +110,7 @@ public class Transaction extends JFrame {
         activity.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) {
 			    setVisible(false); 
-			    Activity act = new Activity(firstN, lastN, tag, true);
+			    Activity act = new Activity(firstN, lastN, tag, false);
 			    act.setVisible(true);
 			    activity.setForeground(Color.WHITE);
 			    newTrans.setForeground(new Color(101,210,69));
@@ -139,9 +141,9 @@ public class Transaction extends JFrame {
 		});
         help.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) { 
-			    //Help helpFrame = new Help();   
+			    Help helpFrame = new Help(4);   
 		        setVisible(false); // Hide current frame
-		        //helpFrame.setVisible(true);
+		        helpFrame.setVisible(true);
 			    help.setForeground(Color.WHITE);
 			    newTrans.setForeground(new Color(101,210,69));
 			    activity.setForeground(new Color(101,210,69));
@@ -172,8 +174,25 @@ public class Transaction extends JFrame {
 		contentPane.add(requestBtn);
 		requestBtn.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) {
-		    	JOptionPane.showConfirmDialog(null,"Are you sure you want to request this amount?", "Confirm Request", JOptionPane.INFORMATION_MESSAGE);
-		    	// display some message
+		    	int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to request $" + amountField.getText() + " from " + receiverField.getText() + "?", "Confirm Request", JOptionPane.INFORMATION_MESSAGE);
+		    	// send message to server
+		    	if(result == JOptionPane.OK_OPTION){
+		    		immediateQuit = true;
+			    	test = new socketUtils();
+		    		boolean connected = test.socketConnect();
+		    		if(connected) {
+		    			String reqMsg = "User requested $" + amountField.getText() + " from " + receiverField.getText();
+		    			test.sendMessage(reqMsg);
+		    			amountField.setText("");
+		    			receiverField.setText("$Cashtag, Email, or Mobile Number");
+		    		}
+		    		
+		    		if(immediateQuit) {
+		    			test.sendMessage("QUIT");
+		    			immediateQuit = false;
+		    		}
+		    	}
+		    	
 		    }
 		});
 		
@@ -187,8 +206,24 @@ public class Transaction extends JFrame {
 		contentPane.add(payBtn);
 		payBtn.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) {
-		    	JOptionPane.showConfirmDialog(null,"Are you sure you want to pay this amount?", "Confirm Payment", JOptionPane.INFORMATION_MESSAGE);
-		    	// display some message
+		    	int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to pay $" + amountField.getText() + " to " + receiverField.getText() + "?", "Confirm Payment", JOptionPane.INFORMATION_MESSAGE);
+		    	// send message to server
+		    	if(result == JOptionPane.OK_OPTION){
+		    		immediateQuit = true;
+			    	test = new socketUtils();
+		    		boolean connected = test.socketConnect();
+		    		if(connected) {
+		    			String reqMsg = "User paid $" + amountField.getText() + " to " + receiverField.getText();
+		    			test.sendMessage(reqMsg);
+		    			amountField.setText("");
+		    			receiverField.setText("$Cashtag, Email, or Mobile Number");
+		    		}
+		    		
+		    		if(immediateQuit) {
+		    			test.sendMessage("QUIT");
+		    			immediateQuit = false;
+		    		}
+		    	}
 		    }
 		});
 		
