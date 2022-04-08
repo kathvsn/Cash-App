@@ -1,5 +1,9 @@
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.net.BindException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -8,12 +12,17 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.List;
 import java.util.Vector;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 public class socketServer implements Runnable
 {
@@ -175,14 +184,20 @@ public class socketServer implements Runnable
 	              if (clientString.contains("quit"))
 	              {
 	                 session_done = true;
+	                 fileIO fio = new fileIO("serverBacklog.txt");
+	                 fio.wrData(serverSearch.incoming.getText());
 	              }
 	              else if (clientString.contains("QUIT"))
 	              {
 	                 session_done = true;
+	                 fileIO fio = new fileIO("serverBacklog.txt");
+	                 fio.wrData(serverSearch.incoming.getText());
 	              }
 	              else if (clientString.contains("Quit"))
 	              {
 	                 session_done = true;
+	                 fileIO fio = new fileIO("serverBacklog.txt");
+	                 fio.wrData(serverSearch.incoming.getText());
 	              }
 	              else if (clientString.contains("Date>"))
 	              {
@@ -212,18 +227,20 @@ public class socketServer implements Runnable
 	         			    		        	
 	           Thread.sleep(500);
 	           
-	        }// end while loop
-	        
-	        keyString = ipString + ":" + threadId;
-	        
+	        }    // end while loop
+	
+            keyString = ipString + ":" + threadId;
+	      
+	      
 	        numOfConnections--;
-	        
+
 	        // close client socket
 	        csocket.close();
 	       
 	        // update the status text area to show progress of program
 	        serverSearch.incoming.append("Child Thread : " + threadId + " : is Exiting!!!" + newline);
 	        serverSearch.incoming.append("Num of Connections = " + numOfConnections);
+	        
 		     
 	     } // end try  
 	     catch (SocketException e)
