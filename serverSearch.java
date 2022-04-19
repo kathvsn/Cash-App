@@ -14,6 +14,7 @@ public class serverSearch extends JFrame {
 	public static JTextArea displayIP;
 	public static JTextArea incoming;
 	public static JTextArea bottom;
+	public static JPanel logo;
 	
 	public serverSearch(){
 
@@ -82,10 +83,17 @@ public class serverSearch extends JFrame {
         
         // bottom area displays IP addresses connected 
         bottom = new JTextArea();
-		bottom.setBounds(710, 135, 250, 374);
+		bottom.setBounds(710, 135, 250, 225);
 		bottom.setEditable(false);
 		bottom.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		contentPane.add(bottom);
+		
+		// Put logo here @Kathy
+		logo = new JPanel();
+	    logo.setBounds(710, 370, 250, 140);
+	    logo.setBackground(Color.white);
+		logo.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+		contentPane.add(logo);
 		
 		JButton exitButton = new JButton("EXIT");
 		exitButton.addActionListener(new ActionListener(){
@@ -146,7 +154,7 @@ public class serverSearch extends JFrame {
           refreshTitleBar.start();
           
           Thread refreshThreadCA = new Thread(){
-  			public void run(){ 	
+  			public void run(){
   				socketServer.runSockServer();
   		    }
   		 };
