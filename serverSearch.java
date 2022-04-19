@@ -79,54 +79,10 @@ public class serverSearch extends JFrame {
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setBounds(10, 370, 680, 140);
 		contentPane.add(scroll);
-	   
-	    // filter by label + uneditable text field
-		JLabel filterBy = new JLabel("Filter By");
-		filterBy.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
-		filterBy.setForeground(new Color(147,141,141));
-		filterBy.setBounds(800, 145, 200, 25);
-		contentPane.add(filterBy);
-		
-	    
-		JButton nameBtn = new JButton("Name");
-		nameBtn.setBounds(700, 200, 150, 25);
-		nameBtn.setBorderPainted(false);
-		nameBtn.setOpaque(false);
-		nameBtn.setForeground(new Color(83,71,71));
-		nameBtn.setBackground(new Color(28,255,79));
-        nameBtn.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 22));
-        contentPane.add(nameBtn);
-        
-        JButton tagBtn = new JButton("Cashtag");
-        tagBtn.setBounds(710, 240, 150, 25);
-		tagBtn.setBorderPainted(false);
-		tagBtn.setOpaque(false);
-		tagBtn.setForeground(new Color(147,141,141));
-		tagBtn.setBackground(new Color(28,255,79));
-		tagBtn.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 22));
-        contentPane.add(tagBtn);
-       
-        JButton locationBtn = new JButton("Location");
-        locationBtn.setBounds(710, 290, 150, 25);
-        locationBtn.setBorderPainted(false);
-        locationBtn.setOpaque(false);
-        locationBtn.setForeground(new Color(147,141,141));
-        locationBtn.setBackground(new Color(28,255,79));
-		locationBtn.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 22));
-        contentPane.add(locationBtn);
-        
-        JButton accAgeBtn = new JButton("Account Age");
-        accAgeBtn.setBounds(710, 340, 200, 25);
-		accAgeBtn.setBorderPainted(false);
-		accAgeBtn.setOpaque(false);
-		accAgeBtn.setForeground(new Color(147,141,141));
-		accAgeBtn.setBackground(new Color(28,255,79));
-		accAgeBtn.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 22));
-        contentPane.add(accAgeBtn);
         
         // bottom area displays IP addresses connected 
         bottom = new JTextArea();
-		bottom.setBounds(710, 370, 250, 140);
+		bottom.setBounds(710, 135, 250, 374);
 		bottom.setEditable(false);
 		bottom.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		contentPane.add(bottom);
@@ -170,7 +126,7 @@ public class serverSearch extends JFrame {
 		// clock
         Thread refreshTitleBar = new Thread(){
             public void run(){ 
-                 while (true){//Keep running while true (aka always)
+                 while (true){//Keep running while true 
                      try {
                        // Display time
                        Date date = new Date();
@@ -179,7 +135,7 @@ public class serverSearch extends JFrame {
                        String title = "Cash App Server | " + str; //concatenate the time with the title
                        setTitle(title);
 
-                       // sleep for 1 secondxw
+                       // sleep for 1 second
                        sleep(1000L); 
                        }
                      catch (InterruptedException e) {}//don't know what it does here cuz ide says so
