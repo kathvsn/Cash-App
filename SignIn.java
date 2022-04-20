@@ -175,7 +175,7 @@ public class SignIn extends JFrame {
 				int result = JOptionPane.showConfirmDialog(null, "Do you really want to exit Cash App?", "Exit Application", JOptionPane.INFORMATION_MESSAGE);
 				//JOptionPane.INFORMATION_MESSAGE: Yes, No, Exit
 				if(result == JOptionPane.OK_OPTION){
-					test.sendMessage("QUIT");
+					//test.sendMessage("QUIT");
 					dispose();
 					System.exit(0);
 				}
