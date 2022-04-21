@@ -1,11 +1,13 @@
 import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -28,102 +30,107 @@ public class CreateAccount extends JFrame {
 		// background color
 		getContentPane().setBackground(new Color(12, 182, 53));
 		
+		JLabel imagelabel = new JLabel();
+		imagelabel.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/CashAppImgs/CashAppLogo.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT)));
+		imagelabel.setBounds(25, 5, 100, 100);
+		contentPane.add(imagelabel);
+		
 		// labels
 		JLabel addBankDetails = new JLabel("Add a bank using your debit card");
 		addBankDetails.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 		addBankDetails.setForeground(Color.WHITE);
-		addBankDetails.setBounds(160, 45, 400, 20);
+		addBankDetails.setBounds(160, 65, 400, 20);
 		contentPane.add(addBankDetails);
 		
 		// textfields for card/bank information
 		JTextField cardNumber = new JTextField("Card Number");
 		cardNumber.setToolTipText("Enter your card number.");
-		cardNumber.setBounds(130, 70, 300, 40);
+		cardNumber.setBounds(130, 90, 300, 40);
 		contentPane.add(cardNumber);
 		
 		JTextField cardDate = new JTextField("MM/YYYY");
 		cardDate.setToolTipText("Enter your card date as MM/YYYY.");
-		cardDate.setBounds(130, 110, 100, 40);
+		cardDate.setBounds(130, 130, 100, 40);
 		contentPane.add(cardDate);
 		
 		JTextField cardCVV = new JTextField("CVV");
 		cardCVV.setToolTipText("Enter your card security number.");
-		cardCVV.setBounds(230, 110, 100, 40);
+		cardCVV.setBounds(230, 130, 100, 40);
 		contentPane.add(cardCVV);
 		
 		JTextField zip = new JTextField("Zipcode");
 		zip.setToolTipText("Enter your 5-digit zipcode.");
-		zip.setBounds(330, 110, 100, 40);
+		zip.setBounds(330, 130, 100, 40);
 		contentPane.add(zip);
 		
 		// display name (first and last name)
 		JLabel displayName = new JLabel("First and Last Name");
 		displayName.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 		displayName.setForeground(Color.WHITE);
-		displayName.setBounds(200, 170, 400, 20);
+		displayName.setBounds(200, 190, 400, 20);
 		contentPane.add(displayName);
 				
 		JTextField fName = new JTextField();
 		fName.setToolTipText("Enter your first name.");
-		fName.setBounds(130, 190, 150, 40);
+		fName.setBounds(130, 210, 150, 40);
 		contentPane.add(fName);
 		
 		JTextField lName = new JTextField();
 		lName.setToolTipText("Enter your last name.");
-		lName.setBounds(280, 190, 150, 40);
+		lName.setBounds(280, 210, 150, 40);
 		contentPane.add(lName);
 
 		// address
 		JLabel addressLabel = new JLabel("Billing Address");
 		addressLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 		addressLabel.setForeground(Color.WHITE);
-		addressLabel.setBounds(220, 240, 400, 20);
+		addressLabel.setBounds(220, 260, 400, 20);
 		contentPane.add(addressLabel);
 		
 		// textfields for card/bank information
 		JTextField address = new JTextField("Address");
 		address.setToolTipText("Enter your billing address.");
-		address.setBounds(130, 260, 300, 40);
+		address.setBounds(130, 280, 300, 40);
 		contentPane.add(address);
 		
 		JTextField city = new JTextField("City/Town");
 		city.setToolTipText("Enter your city or town.");
-		city.setBounds(130, 300, 100, 40);
+		city.setBounds(130, 320, 100, 40);
 		contentPane.add(city);
 		
 		String[] statesList = {"--","AK","AL","AR","AS","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"};
 		JComboBox<String> states = new JComboBox<String>(statesList);
 		states.setToolTipText("Select your state.");
-		states.setBounds(230, 300, 100, 40);
+		states.setBounds(230, 320, 100, 40);
 		contentPane.add(states);
 		
 		JTextField zipAdd = new JTextField("Zipcode");
 		zipAdd.setToolTipText("Enter your 5-digit zipcode.");
-		zipAdd.setBounds(330, 300, 100, 40);
+		zipAdd.setBounds(330, 320, 100, 40);
 		contentPane.add(zipAdd);
 		
 		// cashtag 
 		JLabel cashtagLabel = new JLabel("$Cashtag");
 		cashtagLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 		cashtagLabel.setForeground(Color.WHITE);
-		cashtagLabel.setBounds(250, 350, 400, 20);
+		cashtagLabel.setBounds(250, 370, 400, 20);
 		contentPane.add(cashtagLabel);
 		
 		JTextField tag = new JTextField();
 		tag.setToolTipText("Enter your unique cashtag that begins with $");
-		tag.setBounds(130, 375, 300, 40);
+		tag.setBounds(130, 395, 300, 40);
 		contentPane.add(tag);
 
 		// email or mobile number
 		JLabel emailOrNumber = new JLabel("Email or Mobile Number");
 		emailOrNumber.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 		emailOrNumber.setForeground(Color.WHITE);
-		emailOrNumber.setBounds(620, 45, 400, 20);
+		emailOrNumber.setBounds(620, 65, 400, 20);
 		contentPane.add(emailOrNumber);
 		
 		JTextField emNum = new JTextField();
 		emNum.setToolTipText("Enter your email or mobile number.");
-		emNum.setBounds(550, 70, 300, 40);
+		emNum.setBounds(550, 90, 300, 40);
 		contentPane.add(emNum);
 		
 		// radio buttons to specify whether the user chose to enter their email or phone number
@@ -132,8 +139,8 @@ public class CreateAccount extends JFrame {
 		email.setForeground(Color.WHITE);
 		mobile.setForeground(Color.WHITE);
 		
-		email.setBounds(580, 130, 100, 20);
-		mobile.setBounds(700, 130, 150, 20);
+		email.setBounds(580, 150, 100, 20);
+		mobile.setBounds(700, 150, 150, 20);
 		
 		ButtonGroup bg = new ButtonGroup();
 		
@@ -146,42 +153,42 @@ public class CreateAccount extends JFrame {
 		JLabel pwLabel = new JLabel("Set Password");
 		pwLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 		pwLabel.setForeground(Color.WHITE);
-		pwLabel.setBounds(650, 170, 400, 20);
+		pwLabel.setBounds(650, 190, 400, 20);
 		contentPane.add(pwLabel);
 		
 		JPasswordField pass = new JPasswordField();
 		pass.setToolTipText("Set your password.");
-		pass.setBounds(550, 190, 300, 40);
+		pass.setBounds(550, 210, 300, 40);
 		contentPane.add(pass);
 		
 		// re-enter password
 		JLabel reEnter = new JLabel("Re-enter Password");
 		reEnter.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 		reEnter.setForeground(Color.WHITE);
-		reEnter.setBounds(630, 240, 400, 20);
+		reEnter.setBounds(630, 260, 400, 20);
 		contentPane.add(reEnter);
 		
 		JPasswordField rePass = new JPasswordField();
 		rePass.setToolTipText("Re-enter your password.");
-		rePass.setBounds(550, 260, 300, 40);
+		rePass.setBounds(550, 280, 300, 40);
 		contentPane.add(rePass);
 		
 		// security questions
 		JLabel securityLabel = new JLabel("Security Question");
 		securityLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 		securityLabel.setForeground(Color.WHITE);
-		securityLabel.setBounds(630, 310, 400, 20);
+		securityLabel.setBounds(630, 330, 400, 20);
 		contentPane.add(securityLabel);
 		
 		String[] secQuestions = {"--", "What is the name of your favorite pet?", "What is your oldest cousin's first name?", "What was your favorite food as a child?"};
 		JComboBox<String> questions = new JComboBox<String>(secQuestions);
 		questions.setToolTipText("Select a security question to answer.");
-		questions.setBounds(550, 330, 300, 40);
+		questions.setBounds(550, 350, 300, 40);
 		contentPane.add(questions);
 		
 		JTextField answer = new JTextField();
 		answer.setToolTipText("Enter your answer to the security question.");
-		answer.setBounds(550, 375, 300, 40);
+		answer.setBounds(550, 395, 300, 40);
 		contentPane.add(answer);
 		
 		// save information and head to activity page
