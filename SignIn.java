@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import javax.swing.*;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 
 // sign in page for the application
 public class SignIn extends JFrame {
@@ -53,8 +55,13 @@ public class SignIn extends JFrame {
 		JLabel titleLabel = new JLabel("Cash App");
 		titleLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 45));
 		titleLabel.setForeground(Color.WHITE);
-		titleLabel.setBounds(400, 120, 400, 100);
+		titleLabel.setBounds(420, 120, 400, 100);
 		contentPane.add(titleLabel);
+		
+		JLabel imagelabel = new JLabel();
+		imagelabel.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/CashAppImgs/CashAppLogo.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT)));
+		imagelabel.setBounds(350, 120, 100, 100);
+		contentPane.add(imagelabel);
 		
 		JLabel signInLabel = new JLabel("Email or mobile number:");
 		signInLabel.setFont(new Font("Arial Rounded MT", Font.PLAIN, 12));
