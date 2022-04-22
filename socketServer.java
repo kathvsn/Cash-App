@@ -230,7 +230,7 @@ public class socketServer implements Runnable
 	       
 	        // update the status text area to show progress of program
 	        serverSearch.incoming.append("Child Thread : " + threadId + " : is Exiting!!!" + newline);
-	        serverSearch.incoming.append("Num of Connections = " + numOfConnections);
+	        serverSearch.incoming.append("Num of Connections = " + numOfConnections + newline);
 	        
 		     
 	     } // end try  
