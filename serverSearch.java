@@ -1,5 +1,7 @@
 import java.awt.Color;
+//import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.InetAddress;
@@ -14,7 +16,7 @@ public class serverSearch extends JFrame {
 	public static JTextArea displayIP;
 	public static JTextArea incoming;
 	public static JTextArea bottom;
-	public static JPanel logo;
+	//public static JPanel logo;
 	
 	public serverSearch(){
 
@@ -31,6 +33,11 @@ public class serverSearch extends JFrame {
 		titleLabel.setForeground(Color.WHITE);
 		titleLabel.setBounds(400, 20, 400, 40);
 		contentPane.add(titleLabel);
+		
+		JLabel imagelabel = new JLabel();
+		imagelabel.setIcon(new ImageIcon(new ImageIcon("/C://Users//tomto//Pictures//CashAppLogo (2).png/").getImage().getScaledInstance(65,65, Image.SCALE_DEFAULT)));
+		imagelabel.setBounds(340,20,100,40);
+		contentPane.add(imagelabel);
 	    
 		// green panel on top
 		JPanel greenPanel = new JPanel();
@@ -83,17 +90,10 @@ public class serverSearch extends JFrame {
         
         // bottom area displays IP addresses connected 
         bottom = new JTextArea();
-		bottom.setBounds(710, 135, 250, 225);
+		bottom.setBounds(710, 135, 250, 375);
 		bottom.setEditable(false);
 		bottom.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		contentPane.add(bottom);
-		
-		// Put logo here @Kathy
-		logo = new JPanel();
-	    logo.setBounds(710, 370, 250, 140);
-	    logo.setBackground(Color.white);
-		logo.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-		contentPane.add(logo);
 		
 		JButton exitButton = new JButton("EXIT");
 		exitButton.addActionListener(new ActionListener(){
