@@ -1,9 +1,5 @@
 import java.io.IOException;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.net.BindException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -12,17 +8,12 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.List;
 import java.util.Vector;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 
 public class socketServer implements Runnable
 {
@@ -79,7 +70,7 @@ public class socketServer implements Runnable
 		    e1.printStackTrace();
 	     }
 	 
-	     serverSearch.incoming.append("Listening on port " + port_num + newline);
+	     serverSearch.incoming.append("Listening on port " + port_num + "\r\n");
 	 
 	     
 	     sessionDone = false;
@@ -150,7 +141,7 @@ public class socketServer implements Runnable
 	        	Enumeration<String> en = vec.elements();
 	        	while (en.hasMoreElements())
 	        	{
-	        		serverSearch.bottom.append(en.nextElement() + " || ");
+	        		serverSearch.bottom.append(en.nextElement() + "\r\n");
 	        		
 	        		if (++counter >= 6)
 	        		{
@@ -170,10 +161,10 @@ public class socketServer implements Runnable
 	              clientString = rstream.readLine();
 	              
 	              // update the status text area to show progress of program
-	              serverSearch.incoming.append("RECV : " + clientString + newline);
+	              serverSearch.incoming.append("RECV : "+clientString+newline);
 	     	       
 	     	       // update the status text area to show progress of program
-	              serverSearch.incoming.append("RLEN : " + clientString.length() + newline);
+	              serverSearch.incoming.append("RLEN : "+clientString.length()+newline);
 	              
 	              if (clientString.length() > 128)
 	              {
@@ -184,26 +175,20 @@ public class socketServer implements Runnable
 	              if (clientString.contains("quit"))
 	              {
 	                 session_done = true;
-	                 if(numOfConnections - 1 == 0) {
-	                	 fileIO fio = new fileIO("serverBacklog.txt");
-		                 fio.wrData(serverSearch.incoming.getText());
-	                 }
+	                 fileIO fio = new fileIO("serverBacklog.txt");
+	                 fio.wrData(serverSearch.incoming.getText());
 	              }
 	              else if (clientString.contains("QUIT"))
 	              {
 	                 session_done = true;
-	                 if(numOfConnections - 1 == 0) {
-	                	 fileIO fio = new fileIO("serverBacklog.txt");
-		                 fio.wrData(serverSearch.incoming.getText());
-	                 }
+	                 fileIO fio = new fileIO("serverBacklog.txt");
+	                 fio.wrData(serverSearch.incoming.getText());
 	              }
 	              else if (clientString.contains("Quit"))
 	              {
 	                 session_done = true;
-	                 if(numOfConnections - 1 == 0) {
-	                	 fileIO fio = new fileIO("serverBacklog.txt");
-		                 fio.wrData(serverSearch.incoming.getText());
-	                 }
+	                 fileIO fio = new fileIO("serverBacklog.txt");
+	                 fio.wrData(serverSearch.incoming.getText());
 	              }
 	              else if (clientString.contains("Date>"))
 	              {
@@ -223,7 +208,7 @@ public class socketServer implements Runnable
 	            	//
 	            	// Print what date is today! Send to the individual THREAD
 	            	//
-	            	pstream.println("Num Of Messages : " + numOfMessages + "   Simple Date: " + reportDate);
+	            	pstream.println("Num Of Messages : " + numOfMessages + "   Simple Date: " + reportDate + newline);
 	              }
 	              else
 	              {
