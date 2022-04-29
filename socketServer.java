@@ -153,6 +153,10 @@ public class socketServer implements Runnable
 	       
 	      PrintStream pstream = new PrintStream (csocket.getOutputStream());
 	      BufferedReader rstream = new BufferedReader(new InputStreamReader(csocket.getInputStream()));
+	      String reqStr = "";
+	      String payStr = "";
+	      boolean paid = false;
+	      boolean requested = false;
 	       
 	      while (session_done == false)
 	      {
@@ -172,21 +176,21 @@ public class socketServer implements Runnable
 	           	   continue;
 	              }
 
-	              if (clientString.contains("quit"))
+	              if (clientString.contains("quit") || clientString.contains("QUIT") || clientString.contains("Quit"))
 	              {
+	            	 int counter = 0;
 	                 session_done = true;
-	                 fileIO fio = new fileIO("serverBacklog.txt");
-	                 fio.wrData(serverSearch.incoming.getText());
-	              }
-	              else if (clientString.contains("QUIT"))
-	              {
-	                 session_done = true;
-	                 fileIO fio = new fileIO("serverBacklog.txt");
-	                 fio.wrData(serverSearch.incoming.getText());
-	              }
-	              else if (clientString.contains("Quit"))
-	              {
-	                 session_done = true;
+	                 vec.remove(vec.indexOf(keyString));
+	                 serverSearch.bottom.setText("");
+	                 Enumeration<String> en = vec.elements();
+	                 while (en.hasMoreElements()){
+	 	        		serverSearch.bottom.append(en.nextElement() + "\r\n");
+	 	        		
+	 	        		if (++counter >= 6){
+	 	        			serverSearch.bottom.append("\r\n");
+	 	        			counter = 0;
+	 	        		}
+	 	        	}
 	                 fileIO fio = new fileIO("serverBacklog.txt");
 	                 fio.wrData(serverSearch.incoming.getText());
 	              }
@@ -210,6 +214,57 @@ public class socketServer implements Runnable
 	            	//
 	            	pstream.println("Num Of Messages : " + numOfMessages + "   Simple Date: " + reportDate + newline);
 	              }
+	              if(clientString.contains("paid")) {
+	            	  fileIO fio = new fileIO("cashAppPayments.txt");
+	            	  fio.wrData(clientString + "\n");
+	            	  payStr = clientString;
+	            	  paid = true;
+	              }
+	              
+	              if(clientString.contains("requested")) {
+	            	  fileIO fio2 = new fileIO("cashAppRequests.txt");
+	            	  fio2.wrData(clientString + "\n");
+	            	  reqStr = clientString;
+	            	  requested = true;
+	              }
+	              
+	              if(clientString.contains("~")) {
+	            	  String[] tag =  clientString.split("~");
+	            	  if(requested == true) {
+	            		  String msR = " " + tag[0] + "_REQUEST";
+	            		  reqStr = reqStr + msR;
+	            		  fileIO fioR = new fileIO("numRequests.txt");
+	            		  fioR.wrData(reqStr + "\n");
+	            		  requested = false;
+	            	  }
+	            	  else if(paid == true) {
+				    	  String msP = " " + tag[0] + "_PAYMENT";
+				    	  payStr = payStr + msP;
+				    	  fileIO fioP = new fileIO("numPayments.txt");
+				    	  fioP.wrData(payStr + "\n");
+				    	  paid = false;
+	            	  }
+			    	  
+				      reqStr = "";
+				      payStr = "";
+			    	  
+	            	  Vector<String> transactionHistory = new Vector<>();
+	            	  Vector<String> requests = new Vector<>();
+	            	  Vector<String> payments = new Vector<>();
+			    		try {
+			    			TransactionSearch fs = new TransactionSearch();
+			    			TransactionSearch fs2 = new TransactionSearch();
+			    			TransactionSearch fs3 = new TransactionSearch();
+			    			transactionHistory = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/cashAppRequests.txt", tag[0], false, false);
+			    			requests = fs2.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numRequests.txt", tag[0], false, true);
+			    			payments = fs3.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numPayments.txt", tag[0], true, false);
+			    		}
+			    		catch(IOException e){
+			    			e.printStackTrace();
+			    		}
+			    		
+			    		
+	              }
 	              else
 	              {
 	            	  pstream.println("NACK : ERROR : No such command!");
@@ -230,7 +285,7 @@ public class socketServer implements Runnable
 	       
 	        // update the status text area to show progress of program
 	        serverSearch.incoming.append("Child Thread : " + threadId + " : is Exiting!!!" + newline);
-	        serverSearch.incoming.append("Num of Connections = " + numOfConnections + newline);
+	        serverSearch.incoming.append("Num of Connections = " + numOfConnections);
 	        
 		     
 	     } // end try  
