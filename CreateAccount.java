@@ -5,7 +5,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -273,8 +272,11 @@ public class CreateAccount extends JFrame {
 		    	else {
 		    		// convert char[] to string
 		    		String pword =  String.valueOf(pass.getPassword());
+		    		String quest = String.valueOf(questions.getSelectedItem());
 		    		// pass credentials to hash the password
-		    		//passwordHash creds = new passwordHash(fName.getText(), lName.getText(), tag.getText(), emNum.getText(), pword);
+		    		passwordHash creds = new passwordHash(fName.getText(), lName.getText(), tag.getText(), emNum.getText(), cardNumber.getText(), quest, answer.getText(), pword);
+		    		fileIO fios = new fileIO("dataCashtags.txt");
+	    			fios.wrData(tag.getText() + "\n");
 			        Activity second = new Activity(fName.getText(), lName.getText(), tag.getText(),true);   
 			        setVisible(false); // Hide current frame
 			        second.setVisible(true);
@@ -334,11 +336,11 @@ public class CreateAccount extends JFrame {
                        String titl = "Cash App | " + str; //concatenate the time with the title
                        setTitle(titl);
 
-                       // sleep for 1 secondxw
+                       // sleep for 1 second
                        sleep(1000L); 
                        }
-                     catch (InterruptedException e) {}//don't know what it does here cuz ide says so
-                     finally{}//same as catch
+                     catch (InterruptedException e) {}
+                     finally{}
                  }
              }
           };
