@@ -3,6 +3,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.io.IOException;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 import java.awt.Image;
@@ -108,9 +109,12 @@ public class SignIn extends JFrame {
 		    		JOptionPane.showMessageDialog(null, "Password field cannot be empty!", "Cash App", JOptionPane.WARNING_MESSAGE);
 		    	}
 		    	
-		    	else if (logInfo.contains("user@user.com")) {
+		    	else if (logInfo.equals("user@user.com")) {
 		    		serverSearch serv = new serverSearch();
 		    		serv.setVisible(true);
+		    		// clear fields
+		    		emailAndNumber.setText("");
+		    		password.setText("");
 		    		test = new socketUtils();
 		    		
 		    		boolean connected = test.socketConnect();
@@ -119,11 +123,40 @@ public class SignIn extends JFrame {
 		    		}
 		    	}
 		    	
-		    	else {
-		    		//need to check for credentials in the text file and if correct, log in
-			        Activity second = new Activity("firstN", "lastN", "tag",true);   
-			        setVisible(false); // Hide current frame
-			        second.setVisible(true);
+		    	else { 
+		    		// need to check for credentials in the text file and if correct, log in
+		    		String information = "";
+		    		try {
+		    			FileSearch fs = new FileSearch();
+		    			information = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/accountCredentials.txt", logInfo);
+		    		}
+		    		catch(IOException e){
+		    			e.printStackTrace();
+		    		}
+		    		
+		    		if(information != "") {
+			    		String[] userInfo =  information.split(":");
+			    		// check if password matches
+			    		String pword =  String.valueOf(password.getPassword());
+			    		checkPass pw = new checkPass(pword);
+			    		String currPw = String.valueOf(pw.retStr(pword));
+			    		String savedPw = String.valueOf(userInfo[7]);
+			    		// error message if passwords don't match + clear password
+			    		if(!(currPw.equals(savedPw))) {
+			    			JOptionPane.showMessageDialog(null, "Wrong password!", "Cash App", JOptionPane.WARNING_MESSAGE);
+			    			password.setText("");
+			    		}
+			    		else {
+			    			// go to activity if log in is successful
+					        Activity second = new Activity(userInfo[0], userInfo[1], userInfo[2],true);   
+					        setVisible(false); // Hide current frame
+					        second.setVisible(true);
+			    		}
+		    		}
+		    		else {
+		    			// if information came back as an empty string, no user signed up with that email/number
+		    			JOptionPane.showMessageDialog(null, "Log in information incorrect or does not exist!", "Cash App", JOptionPane.WARNING_MESSAGE);
+		    		}
 		    	}
 		    }
 		});
