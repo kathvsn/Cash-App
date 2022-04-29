@@ -2,10 +2,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class passwordHash{
-  public passwordHash(String firstName, String lastName, String cashTag, String emailNum, String pass){
+  public String passW;
+  public passwordHash(String firstName, String lastName, String cashTag, String emailNum, String card, String question, String answer,  String pass){
     String passwordToHash = pass;
     String generatedPassword = null;
-    String accInfo = firstName + "~" + lastName + "~" + cashTag + "~" + emailNum + "~";
+    String accInfo = firstName + ":" + lastName + ":" + cashTag + ":" + emailNum + ":" + card + ":" + question + ":" + answer + ":";
 
     try {
       // create MessageDigest instance for MD5
@@ -28,9 +29,10 @@ public class passwordHash{
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
+   
     // write credentials + hashed password to file
-    accInfo = accInfo + generatedPassword;
-    fileIO fio = new fileIO("accountCredentials.txt");
+	accInfo = accInfo + generatedPassword;
+	fileIO fio = new fileIO("accountCredentials.txt");
 	fio.wrData(accInfo);
-  }
+  } 
 }
