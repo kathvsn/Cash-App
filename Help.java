@@ -147,19 +147,12 @@ public class Help extends JFrame {
 				        	second.setVisible(true);
 			    		}
 			    		else if (fmnum == 3) {
-			    			Activity second = new Activity("A","B","C",false);   
 				        	setVisible(false); //Hide current frame
-				        	second.setVisible(true);
-			    		}
-			    		else if (fmnum == 4) {
-			    			Transaction second = new Transaction("A","B","C");   
-				        	setVisible(false); //Hide current frame
-				        	second.setVisible(true);
 			    		}
 			    	}
 			    }
 			});
-			//greenPanel.add(ctag);
+			
 		 // adding compenents to the panel
 		 Help.add(jComboBox);
 		 Help.add(jButton);
