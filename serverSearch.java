@@ -1,14 +1,17 @@
 import java.awt.Color;
-//import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
+import java.util.Enumeration;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
+import java.util.Vector;
 
 public class serverSearch extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +19,6 @@ public class serverSearch extends JFrame {
 	public static JTextArea displayIP;
 	public static JTextArea incoming;
 	public static JTextArea bottom;
-	//public static JPanel logo;
 	
 	public serverSearch(){
 
@@ -31,11 +33,11 @@ public class serverSearch extends JFrame {
 		JLabel titleLabel = new JLabel("Cash App");
 		titleLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 40));
 		titleLabel.setForeground(Color.WHITE);
-		titleLabel.setBounds(400, 20, 400, 40);
+		titleLabel.setBounds(430, 20, 400, 40);
 		contentPane.add(titleLabel);
 		
 		JLabel imagelabel = new JLabel();
-		imagelabel.setIcon(new ImageIcon(new ImageIcon("/C://Users//tomto//Pictures//CashAppLogo (2).png/").getImage().getScaledInstance(65,65, Image.SCALE_DEFAULT)));
+		imagelabel.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/CashAppImgs/CashAppLogo.png").getImage().getScaledInstance(65,65, Image.SCALE_DEFAULT)));
 		imagelabel.setBounds(340,20,100,40);
 		contentPane.add(imagelabel);
 	    
@@ -68,7 +70,7 @@ public class serverSearch extends JFrame {
 	    // search bar: filter activity
 	    JTextField searchField = new JTextField("Search for user (Name, Cashtag, Email, Phone Number)");
 	    searchField.setToolTipText("Search for user (Name, Cashtag, Email, Phone Number)");
-	    searchField.setBounds(10, 135, 680, 40);
+	    searchField.setBounds(10, 135, 530, 40);
 	    contentPane.add(searchField);
 	   
 	    // display users
@@ -77,6 +79,7 @@ public class serverSearch extends JFrame {
 		userList.setEditable(false);
 		userList.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		contentPane.add(userList);
+		
 		
 		// display incoming requests/msgs
 		incoming = new JTextArea();
@@ -115,21 +118,73 @@ public class serverSearch extends JFrame {
 		contentPane.add(exitButton);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JButton viewButton = new JButton("VIEW");
-		viewButton.addActionListener(new ActionListener(){
+		JButton searchButton = new JButton("UPDATE");
+		searchButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
-				dataAnalytics second = new dataAnalytics();   
-		        setVisible(false); // Hide current frame
-		        second.setVisible(true);
+				userList.setText("");
+				userList.append("$Cashtag\t|\tNum of Requests\t|\tNum of Payments\r\n");
+				userList.append("------------------------------------------------------------------------------\n");
+				Vector<String> dataUser = new Vector<>();
+				Vector<String> reqs = new Vector<>();
+				Vector<String> paid = new Vector<>();
+				String curr = "";
+				
+				try {
+					TransactionSearch fs = new TransactionSearch();
+					dataUser = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/dataCashtags.txt", "$", false, false);
+				}
+				catch(IOException e){
+					e.printStackTrace();
+				}
+				if(!(dataUser.isEmpty())) {
+					for(int i = 0; i < dataUser.size(); i++) {
+						curr = curr + String.valueOf(dataUser.get(i));
+						// get requests
+						try {
+							TransactionSearch fs1 = new TransactionSearch();
+							reqs = fs1.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numRequests.txt", String.valueOf(dataUser.get(i)), false, true);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+						if(!(reqs.isEmpty())) {
+							curr = curr + "\t\t" + reqs.size();
+						}
+						else {
+							curr = curr + "\t\t" + "0";
+						}
+						
+						// get number of payments
+						try {
+							TransactionSearch fs2 = new TransactionSearch();
+							paid = fs2.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numPayments.txt", String.valueOf(dataUser.get(i)), true, false);
+						}
+						catch(IOException e){
+							e.printStackTrace();
+						}
+						
+						if(!(paid.isEmpty())) {
+							curr = curr + "\t\t\t" + paid.size();
+						}
+						else {
+							curr = curr + "\t\t\t" + "0";
+						}
+						
+						userList.append(curr + "\r\n");
+						curr = "";
+					}
+					
+				}
+				
 			}
 		});
-		viewButton.setBounds(150, 520, 110, 30);
-		viewButton.setBorderPainted(false);
-		viewButton.setOpaque(true);
-		viewButton.setBackground(new Color(28,236,79));
-		viewButton.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
-		viewButton.setForeground(Color.WHITE);
-		contentPane.add(viewButton);
+		searchButton.setBounds(550, 135, 130, 40);
+		searchButton.setBorderPainted(false);
+		searchButton.setOpaque(true);
+		searchButton.setBackground(new Color(28,236,79));
+		searchButton.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
+		searchButton.setForeground(Color.WHITE);
+		contentPane.add(searchButton);
 		
 		// clock
         Thread refreshTitleBar = new Thread(){
