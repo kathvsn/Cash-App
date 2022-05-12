@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -64,11 +65,20 @@ public class Activity extends JFrame {
 	    contentPane.add(greenPanel);
 	    greenPanel.setLayout(null);
 	   
-	    // temporary user icon
+	    // user initial
+	    char ch1 = firstN.charAt(0);
+	    String initial = String.valueOf(ch1);
+	    JLabel userInitial = new JLabel(initial);
+	    userInitial.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 80));
+	    userInitial.setBounds(135, 65, 80, 80);
+	    userInitial.setForeground(Color.WHITE);
+	    greenPanel.add(userInitial);
+	    
+	    // user icon
 	    JLabel icon = new JLabel("•");
 	    icon.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 400));
 	    icon.setBounds(90, 0, 400, 200);
-	    icon.setForeground(new Color(222,247,180));
+	    icon.setForeground(new Color(211, 171, 160));
 	    greenPanel.add(icon);
 	    
 	    // display name
@@ -86,8 +96,19 @@ public class Activity extends JFrame {
 	    greenPanel.add(cashTag);
 	    
 	    // side buttons
+		JLabel activityImg = new JLabel();
+		activityImg.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/WHITEACTIVITY.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		activityImg.setBounds(30, 250, 25, 25);
+		greenPanel.add(activityImg);
+		
+		JLabel activityImgGr = new JLabel();
+		activityImgGr.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/GREENACTIVITY.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		activityImgGr.setBounds(30, 250, 25, 25);
+		greenPanel.add(activityImgGr);
+		activityImgGr.setVisible(false);
+		
 	    JButton activity = new JButton("Activity");
-	    activity.setBounds(5, 250, 200, 25);
+	    activity.setBounds(25, 250, 200, 25);
 	    activity.setBorderPainted(false);
 	    activity.setOpaque(false);
         activity.setBackground(new Color(28,255,79));
@@ -95,8 +116,20 @@ public class Activity extends JFrame {
         activity.setForeground(Color.WHITE);
         greenPanel.add(activity);
         
+	    // transaction icon
+		JLabel transactionImg = new JLabel();
+		transactionImg.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/WHITETRANSACTION.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		transactionImg.setBounds(30, 300, 25, 25);
+		greenPanel.add(transactionImg);
+		transactionImg.setVisible(false);
+		
+		JLabel transactionImgGr = new JLabel();
+		transactionImgGr.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/GREENTRANSACTION.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		transactionImgGr.setBounds(30, 300, 25, 25);
+		greenPanel.add(transactionImgGr);
+		
         JButton newTrans = new JButton("New Transaction");
-        newTrans.setBounds(35, 300, 240, 25);
+        newTrans.setBounds(55, 300, 240, 25);
         newTrans.setBorderPainted(false);
         newTrans.setOpaque(false);
         newTrans.setBackground(new Color(28,255,79));
@@ -104,8 +137,20 @@ public class Activity extends JFrame {
         newTrans.setForeground(new Color(101,210,69));
         greenPanel.add(newTrans);
         
+	    // settings icon
+		JLabel settingsImg = new JLabel();
+		settingsImg.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/WHITESETTINGS.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		settingsImg.setBounds(30, 350, 25, 25);
+		greenPanel.add(settingsImg);
+		settingsImg.setVisible(false);
+		
+		JLabel settingsImgGr = new JLabel();
+		settingsImgGr.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/GREENSETTINGS.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		settingsImgGr.setBounds(30, 350, 25, 25);
+		greenPanel.add(settingsImgGr);
+        
         JButton settings = new JButton("Settings");
-        settings.setBounds(5, 350, 200, 25);
+        settings.setBounds(27, 350, 200, 25);
         settings.setBorderPainted(false);
         settings.setOpaque(false);
         settings.setBackground(new Color(28,255,79));
@@ -113,8 +158,20 @@ public class Activity extends JFrame {
         settings.setForeground(new Color(101,210,69));
         greenPanel.add(settings);
         
+	    // help icon
+		JLabel helpImg = new JLabel();
+		helpImg.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/WHITEHELP.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		helpImg.setBounds(30, 400, 25, 25);
+		greenPanel.add(helpImg);
+		helpImg.setVisible(false);
+		
+		JLabel helpImgGr = new JLabel();
+		helpImgGr.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/GREENHELP.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		helpImgGr.setBounds(30, 400, 25, 25);
+		greenPanel.add(helpImgGr);
+        
         JButton help = new JButton("Help");
-        help.setBounds(5, 400, 165, 25);
+        help.setBounds(27, 400, 165, 25);
         help.setBorderPainted(false);
         help.setOpaque(false);
         help.setBackground(new Color(28,255,79));
@@ -373,6 +430,12 @@ public class Activity extends JFrame {
 		    payBtn.setVisible(false);
 		    receiverField.setVisible(false);
 		    amountField.setVisible(false);
+		    activityImgGr.setVisible(false);
+		    activityImg.setVisible(true);
+		    transactionImgGr.setVisible(true);
+		    transactionImg.setVisible(false);
+		    settingsImgGr.setVisible(true);
+		    settingsImg.setVisible(false);
 			    
 		}
 	});
@@ -392,6 +455,12 @@ public class Activity extends JFrame {
 			    payBtn.setVisible(true);
 			    receiverField.setVisible(true);
 			    amountField.setVisible(true);
+			    activityImgGr.setVisible(true);
+			    activityImg.setVisible(false);
+			    transactionImgGr.setVisible(false);
+			    transactionImg.setVisible(true);
+			    settingsImgGr.setVisible(true);
+			    settingsImg.setVisible(false);
 			    
 		    }
 		});
@@ -412,6 +481,12 @@ public class Activity extends JFrame {
 			    payBtn.setVisible(false);
 			    receiverField.setVisible(false);
 			    amountField.setVisible(false);
+			    activityImgGr.setVisible(true);
+			    activityImg.setVisible(false);
+			    transactionImgGr.setVisible(true);
+			    transactionImg.setVisible(false);
+			    settingsImgGr.setVisible(false);
+			    settingsImg.setVisible(true);
 			
 			    
 		    }
@@ -420,9 +495,9 @@ public class Activity extends JFrame {
 		    public void actionPerformed(ActionEvent arg0) { 
 			    Help helpFrame = new Help(3);   
 		        helpFrame.setVisible(true);
-			    help.setForeground(Color.WHITE);
+			    activity.setForeground(Color.WHITE);
 			    newTrans.setForeground(new Color(101,210,69));
-			    activity.setForeground(new Color(101,210,69));
+			    help.setForeground(new Color(101,210,69));
 			    settings.setForeground(new Color(101,210,69));
 			    
 		    }
@@ -441,7 +516,7 @@ public class Activity extends JFrame {
                        String title = "Cash App | " + str; //concatenate the time with the title
                        setTitle(title);
 
-                       // sleep for 1 secondxw
+                       // sleep for 1 second
                        sleep(1000L); 
                        }
                      catch (InterruptedException e) {}
