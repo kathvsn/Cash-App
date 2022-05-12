@@ -141,6 +141,8 @@ public class SignIn extends JFrame {
 			    		checkPass pw = new checkPass(pword);
 			    		String currPw = String.valueOf(pw.retStr(pword));
 			    		String savedPw = String.valueOf(userInfo[7]);
+			    		currPw = currPw.toUpperCase();
+			    		savedPw = savedPw.toUpperCase();
 			    		// error message if passwords don't match + clear password
 			    		if(!(currPw.equals(savedPw))) {
 			    			JOptionPane.showMessageDialog(null, "Wrong password!", "Cash App", JOptionPane.WARNING_MESSAGE);
@@ -188,6 +190,13 @@ public class SignIn extends JFrame {
         Forgetpass.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
         Forgetpass.setForeground(Color.WHITE);
         contentPane.add(Forgetpass);
+        Forgetpass.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent arg0) {
+		    	forgotPassword reset = new forgotPassword();   
+			    setVisible(false); // Hide current frame
+			    reset.setVisible(true);
+		    }
+		});
         
         // help button
 		JButton help = new JButton("Help");
