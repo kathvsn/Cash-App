@@ -269,6 +269,10 @@ public class Activity extends JFrame {
 		contentPane.add(requestBtn);
 		requestBtn.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) {
+		    	String value = amountField.getText();
+		    	if(value == null || value == "") {
+    				JOptionPane.showMessageDialog(null, "Error! Enter a numeric value!", "Cash App", JOptionPane.WARNING_MESSAGE);
+		    	}
 		    	// need to check for credentials if that person exists
 	    		String information = "";
 	    		try {
@@ -280,59 +284,69 @@ public class Activity extends JFrame {
 	    		}
 	    		
 	    		if(information != "") {
-			    	int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to request $" + amountField.getText() + " from " + receiverField.getText() + "?", "Confirm Request", JOptionPane.INFORMATION_MESSAGE);
-			    	// send message to server
-			    	if(result == JOptionPane.OK_OPTION){
-			    		immediateQuit = true;
-				    	test = new socketUtils();
-			    		boolean connected = test.socketConnect();
-			    		if(connected) {
-			    			String reqMsg = tag + " requested $" + amountField.getText() + " from " + receiverField.getText();
-			    			String ms = " " + tag + "_REQUEST";
-			    			String pMsg = tag + " requested $" + amountField.getText() + " from " + receiverField.getText() + ms;
-			    			fileIO fio = new fileIO("cashAppRequests.txt");
-			    			fileIO fio2 = new fileIO("numRequests.txt");
-			    			fio.wrData(reqMsg);
-			    			fio2.wrData(pMsg);
-			    			Vector<String> transactionHistory = new Vector<>();
-			    			Vector<String> requests = new Vector<>();
-				    		try {
-				    			TransactionSearch fs = new TransactionSearch();
-				    			TransactionSearch fs2 = new TransactionSearch();
-				    			transactionHistory = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/cashAppRequests.txt", tag, false, false);
-				    			requests = fs2.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numRequests.txt", tag, false, true);
+	    			boolean numericVal = false;
+	    			try {  
+	    			    Double.parseDouble(value);  
+	    			    numericVal = true;
+	    			} catch(NumberFormatException e){  
+	    				numericVal = false;  
+	    				JOptionPane.showMessageDialog(null, "Error! Not a numeric value!", "Cash App", JOptionPane.WARNING_MESSAGE);
+	    				amountField.setText("");
+	    			}
+	    			if(numericVal) {
+				    	int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to request $" + amountField.getText() + " from " + receiverField.getText() + "?", "Confirm Request", JOptionPane.INFORMATION_MESSAGE);
+				    	// send message to server
+				    	if(result == JOptionPane.OK_OPTION){
+				    		immediateQuit = true;
+					    	test = new socketUtils();
+				    		boolean connected = test.socketConnect();
+				    		if(connected) {
+				    			String reqMsg = tag + " requested $" + amountField.getText() + " from " + receiverField.getText();
+				    			String ms = " " + tag + "_REQUEST";
+				    			String pMsg = tag + " requested $" + amountField.getText() + " from " + receiverField.getText() + ms;
+				    			fileIO fio = new fileIO("cashAppRequests.txt");
+				    			fileIO fio2 = new fileIO("numRequests.txt");
+				    			fio.wrData(reqMsg);
+				    			fio2.wrData(pMsg);
+				    			Vector<String> transactionHistory = new Vector<>();
+				    			Vector<String> requests = new Vector<>();
+					    		try {
+					    			TransactionSearch fs = new TransactionSearch();
+					    			TransactionSearch fs2 = new TransactionSearch();
+					    			transactionHistory = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/cashAppRequests.txt", tag, false, false);
+					    			requests = fs2.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numRequests.txt", tag, false, true);
+					    		}
+					    		catch(IOException e){
+					    			e.printStackTrace();
+					    		}
+					    		if(!(transactionHistory.isEmpty())) {
+					    			Enumeration enu = transactionHistory.elements();
+					    			pendingTransactions.setText("");
+					    			while (enu.hasMoreElements()) {
+					    				pendingTransactions.append(enu.nextElement() + "\r\n");
+					    			}
+					    		}
+	
+				    			test.sendMessage(reqMsg);
+				    			// test for updating server on diff computer
+				    			test.sendMessage(tag + "~");
+				    			test.sendMessage("QUIT");
+				    			// end test
+				    			amountField.setText("");
+				    			receiverField.setText("$Cashtag, Email, or Mobile Number");
 				    		}
-				    		catch(IOException e){
-				    			e.printStackTrace();
+				    		
+				    		if(immediateQuit) {
+				    			test.sendMessage("QUIT");
+				    			immediateQuit = false;
 				    		}
-				    		if(!(transactionHistory.isEmpty())) {
-				    			Enumeration enu = transactionHistory.elements();
-				    			pendingTransactions.setText("");
-				    			while (enu.hasMoreElements()) {
-				    				pendingTransactions.append(enu.nextElement() + "\r\n");
-				    			}
-				    		}
-
-			    			test.sendMessage(reqMsg);
-			    			// test for updating server on diff computer
-			    			test.sendMessage(tag + "~");
-			    			test.sendMessage("QUIT");
-			    			// end test
-			    			amountField.setText("");
-			    			receiverField.setText("$Cashtag, Email, or Mobile Number");
-			    		}
-			    		
-			    		if(immediateQuit) {
-			    			test.sendMessage("QUIT");
-			    			immediateQuit = false;
-			    		}
-			    	}
+	    				}
+		    		}
 	    		}
-	    		else {
-	    			// if information came back as an empty string, no user exists
-	    			JOptionPane.showMessageDialog(null, "Error! The person you are trying to request is not registered with Cash App!", "Cash App", JOptionPane.WARNING_MESSAGE);
-	    		}
-		    	
+		    	else {
+		    		// if information came back as an empty string, no user exists
+		    		JOptionPane.showMessageDialog(null, "Error! The person you are trying to request is not registered with Cash App!", "Cash App", JOptionPane.WARNING_MESSAGE);
+		    	}
 		    }
 		});
 		
@@ -347,6 +361,10 @@ public class Activity extends JFrame {
 		contentPane.add(payBtn);
 		payBtn.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) {
+		    	String value = amountField.getText();
+		    	if(value == null || value == "") {
+    				JOptionPane.showMessageDialog(null, "Error! Enter a numeric value!", "Cash App", JOptionPane.WARNING_MESSAGE);
+		    	}
 		    	// need to check for credentials if that person exists
 	    		String information = "";
 	    		try {
@@ -357,53 +375,64 @@ public class Activity extends JFrame {
 	    			e.printStackTrace();
 	    		}
 	    		if(information != "") {
-			    	int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to pay $" + amountField.getText() + " to " + receiverField.getText() + "?", "Confirm Payment", JOptionPane.INFORMATION_MESSAGE);
-			    	// send message to server
-			    	if(result == JOptionPane.OK_OPTION){
-			    		immediateQuit = true;
-				    	test = new socketUtils();
-			    		boolean connected = test.socketConnect();
-			    		if(connected) {
-			    			String reqMsg = tag + " paid $" + amountField.getText() + " to " + receiverField.getText();
-			    			String ms = " " + tag + "_PAYMENT";
-			    			String pMsg = tag + " paid $" + amountField.getText() + " to " + receiverField.getText() + ms;
-			    			fileIO fio = new fileIO("cashAppPayments.txt");
-			    			fileIO fio2 = new fileIO("numPayments.txt");
-			    			fio.wrData(reqMsg);
-			    			fio2.wrData(pMsg);
-			    			Vector<String> transactionHistory = new Vector<>();
-			    			Vector<String> payments = new Vector<>();
-				    		try {
-				    			TransactionSearch fs = new TransactionSearch();
-				    			TransactionSearch fs2 = new TransactionSearch();
-				    			transactionHistory = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/cashAppPayments.txt", tag, false, false);
-				    			payments = fs2.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numPayments.txt", tag, true, false);
+	    			boolean numericVal = false;
+	    			try {  
+	    			    Double.parseDouble(value);  
+	    			    numericVal = true;
+	    			} catch(NumberFormatException e){  
+	    				numericVal = false;  
+	    				JOptionPane.showMessageDialog(null, "Error! Not a numeric value!", "Cash App", JOptionPane.WARNING_MESSAGE);
+	    				amountField.setText("");
+	    			}
+	    			if(numericVal) {
+				    	int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to pay $" + amountField.getText() + " to " + receiverField.getText() + "?", "Confirm Payment", JOptionPane.INFORMATION_MESSAGE);
+				    	// send message to server
+				    	if(result == JOptionPane.OK_OPTION){
+				    		immediateQuit = true;
+					    	test = new socketUtils();
+				    		boolean connected = test.socketConnect();
+				    		if(connected) {
+				    			String reqMsg = tag + " paid $" + amountField.getText() + " to " + receiverField.getText();
+				    			String ms = " " + tag + "_PAYMENT";
+				    			String pMsg = tag + " paid $" + amountField.getText() + " to " + receiverField.getText() + ms;
+				    			fileIO fio = new fileIO("cashAppPayments.txt");
+				    			fileIO fio2 = new fileIO("numPayments.txt");
+				    			fio.wrData(reqMsg);
+				    			fio2.wrData(pMsg);
+				    			Vector<String> transactionHistory = new Vector<>();
+				    			Vector<String> payments = new Vector<>();
+					    		try {
+					    			TransactionSearch fs = new TransactionSearch();
+					    			TransactionSearch fs2 = new TransactionSearch();
+					    			transactionHistory = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/cashAppPayments.txt", tag, false, false);
+					    			payments = fs2.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numPayments.txt", tag, true, false);
+					    		}
+					    		catch(IOException e){
+					    			e.printStackTrace();
+					    		}
+					    		if(!(transactionHistory.isEmpty())) {
+					    			Enumeration enu = transactionHistory.elements();
+					    			completedTransactions.setText("");
+					    			while (enu.hasMoreElements()) {
+					    				completedTransactions.append(enu.nextElement() + "\r\n");
+					    			}
+					    		}
+	
+				    			test.sendMessage(reqMsg);
+				    			// test for updating server on diff computer
+				    			test.sendMessage(tag + "~");
+				    			test.sendMessage("QUIT");
+				    			// end test
+				    			amountField.setText("");
+				    			receiverField.setText("$Cashtag, Email, or Mobile Number");
 				    		}
-				    		catch(IOException e){
-				    			e.printStackTrace();
+				    		
+				    		if(immediateQuit) {
+				    			test.sendMessage("QUIT");
+				    			immediateQuit = false;
 				    		}
-				    		if(!(transactionHistory.isEmpty())) {
-				    			Enumeration enu = transactionHistory.elements();
-				    			completedTransactions.setText("");
-				    			while (enu.hasMoreElements()) {
-				    				completedTransactions.append(enu.nextElement() + "\r\n");
-				    			}
-				    		}
-
-			    			test.sendMessage(reqMsg);
-			    			// test for updating server on diff computer
-			    			test.sendMessage(tag + "~");
-			    			test.sendMessage("QUIT");
-			    			// end test
-			    			amountField.setText("");
-			    			receiverField.setText("$Cashtag, Email, or Mobile Number");
-			    		}
-			    		
-			    		if(immediateQuit) {
-			    			test.sendMessage("QUIT");
-			    			immediateQuit = false;
-			    		}
-			    	}
+				    	}
+	    			}
 	    		}
 	    		else {
 	    			// if information came back as an empty string, no user exists
@@ -495,10 +524,6 @@ public class Activity extends JFrame {
 		    public void actionPerformed(ActionEvent arg0) { 
 			    Help helpFrame = new Help(3);   
 		        helpFrame.setVisible(true);
-			    activity.setForeground(Color.WHITE);
-			    newTrans.setForeground(new Color(101,210,69));
-			    help.setForeground(new Color(101,210,69));
-			    settings.setForeground(new Color(101,210,69));
 			    
 		    }
 		});
