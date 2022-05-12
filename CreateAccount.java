@@ -30,7 +30,7 @@ public class CreateAccount extends JFrame {
 		getContentPane().setBackground(new Color(12, 182, 53));
 		
 		JLabel imagelabel = new JLabel();
-		imagelabel.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/CashAppImgs/CashAppLogo.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT)));
+		imagelabel.setIcon(new ImageIcon(new ImageIcon("/Users/alvin/Downloads/CashAppLogo.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT)));
 		imagelabel.setBounds(25, 5, 100, 100);
 		contentPane.add(imagelabel);
 		
@@ -137,6 +137,8 @@ public class CreateAccount extends JFrame {
 		JRadioButton mobile = new JRadioButton("Mobile Number");
 		email.setForeground(Color.WHITE);
 		mobile.setForeground(Color.WHITE);
+		email.setBackground(new Color(12, 182, 53));
+		mobile.setBackground(new Color(12, 182, 53));
 		
 		email.setBounds(580, 150, 100, 20);
 		mobile.setBounds(700, 150, 150, 20);
