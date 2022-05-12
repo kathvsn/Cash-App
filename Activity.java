@@ -55,8 +55,7 @@ public class Activity extends JFrame {
 		    	}
 		    }
 		});
-		
-	    
+		 
 		// green side panel
 		JPanel greenPanel = new JPanel();
 	    greenPanel.setBackground(new Color(12, 182, 53));
@@ -70,14 +69,14 @@ public class Activity extends JFrame {
 	    String initial = String.valueOf(ch1);
 	    JLabel userInitial = new JLabel(initial);
 	    userInitial.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 80));
-	    userInitial.setBounds(135, 65, 80, 80);
+	    userInitial.setBounds(130, 70, 80, 80);
 	    userInitial.setForeground(Color.WHITE);
 	    greenPanel.add(userInitial);
 	    
 	    // user icon
 	    JLabel icon = new JLabel("•");
 	    icon.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 400));
-	    icon.setBounds(90, 0, 400, 200);
+	    icon.setBounds(78, -10, 400, 200);
 	    icon.setForeground(new Color(211, 171, 160));
 	    greenPanel.add(icon);
 	    
@@ -91,24 +90,24 @@ public class Activity extends JFrame {
 	    // cashtag
 	    JLabel cashTag = new JLabel(tag);
 	    cashTag.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
-	    cashTag.setBounds(130, 200, 200, 20);
+	    cashTag.setBounds(125, 200, 200, 20);
 	    cashTag.setForeground(Color.WHITE);
 	    greenPanel.add(cashTag);
 	    
 	    // side buttons
 		JLabel activityImg = new JLabel();
-		activityImg.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/WHITEACTIVITY.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		activityImg.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/WHITEACTIVITY.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		activityImg.setBounds(30, 250, 25, 25);
 		greenPanel.add(activityImg);
 		
 		JLabel activityImgGr = new JLabel();
-		activityImgGr.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/GREENACTIVITY.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		activityImgGr.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/GREENACTIVITY.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		activityImgGr.setBounds(30, 250, 25, 25);
 		greenPanel.add(activityImgGr);
 		activityImgGr.setVisible(false);
 		
 	    JButton activity = new JButton("Activity");
-	    activity.setBounds(25, 250, 200, 25);
+	    activity.setBounds(20, 250, 200, 25);
 	    activity.setBorderPainted(false);
 	    activity.setOpaque(false);
         activity.setBackground(new Color(28,255,79));
@@ -118,18 +117,18 @@ public class Activity extends JFrame {
         
 	    // transaction icon
 		JLabel transactionImg = new JLabel();
-		transactionImg.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/WHITETRANSACTION.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
-		transactionImg.setBounds(30, 300, 25, 25);
+		transactionImg.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/WHITESETTINGS.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		transactionImg.setBounds(24, 300, 25, 25);
 		greenPanel.add(transactionImg);
 		transactionImg.setVisible(false);
 		
 		JLabel transactionImgGr = new JLabel();
-		transactionImgGr.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/GREENTRANSACTION.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		transactionImgGr.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/GREENTRANSACTION.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		transactionImgGr.setBounds(30, 300, 25, 25);
 		greenPanel.add(transactionImgGr);
 		
         JButton newTrans = new JButton("New Transaction");
-        newTrans.setBounds(55, 300, 240, 25);
+        newTrans.setBounds(45, 300, 240, 25);
         newTrans.setBorderPainted(false);
         newTrans.setOpaque(false);
         newTrans.setBackground(new Color(28,255,79));
@@ -139,13 +138,13 @@ public class Activity extends JFrame {
         
 	    // settings icon
 		JLabel settingsImg = new JLabel();
-		settingsImg.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/WHITESETTINGS.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		settingsImg.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/WHITESETTINGS.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		settingsImg.setBounds(30, 350, 25, 25);
 		greenPanel.add(settingsImg);
 		settingsImg.setVisible(false);
 		
 		JLabel settingsImgGr = new JLabel();
-		settingsImgGr.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/GREENSETTINGS.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		settingsImgGr.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/GREENSETTINGS.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		settingsImgGr.setBounds(30, 350, 25, 25);
 		greenPanel.add(settingsImgGr);
         
@@ -160,13 +159,13 @@ public class Activity extends JFrame {
         
 	    // help icon
 		JLabel helpImg = new JLabel();
-		helpImg.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/WHITEHELP.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		helpImg.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/WHITEHELP.PNG").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		helpImg.setBounds(30, 400, 25, 25);
 		greenPanel.add(helpImg);
 		helpImg.setVisible(false);
 		
 		JLabel helpImgGr = new JLabel();
-		helpImgGr.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/GREENHELP.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		helpImgGr.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/GREENHELP.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		helpImgGr.setBounds(30, 400, 25, 25);
 		greenPanel.add(helpImgGr);
         
@@ -179,38 +178,38 @@ public class Activity extends JFrame {
         help.setForeground(new Color(101,210,69));
         greenPanel.add(help);
         
-	    // search bar: filter activity
-	    JTextField searchField = new JTextField();
-	    searchField.setToolTipText("Search for previous transactions.");
-	    searchField.setBounds(320, 5, 680, 80);
-	    contentPane.add(searchField);
+//	    // search bar: filter activity
+//	    JTextField searchField = new JTextField();
+//	    searchField.setToolTipText("Search for previous transactions.");
+//	    searchField.setBounds(320, 5, 680, 80);
+//	    contentPane.add(searchField);
 	    
 	    // pending label + uneditable text field
 	    JLabel pendingLabel = new JLabel("PENDING");
 	    pendingLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
 	    pendingLabel.setForeground(new Color(147,141,141));
-	    pendingLabel.setBounds(330, 70, 400, 100);
+	    pendingLabel.setBounds(330, -30, 400, 100);
 	    contentPane.add(pendingLabel);    
 	    JTextArea pendingTransactions = new JTextArea();
 	    JScrollPane scroll = new JScrollPane (pendingTransactions);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-	    pendingTransactions.setBounds(320, 140, 680, 100);
+	    pendingTransactions.setBounds(320, 40, 680, 200);
 	    pendingTransactions.setEditable(false);
-	    scroll.setBounds(320, 140, 680, 100);
+	    scroll.setBounds(320, 40, 680, 200);
 	    contentPane.add(scroll);
 	   
 	    // completed label + uneditable text field
 	    JLabel completedLabel = new JLabel("COMPLETED");
 	    completedLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
 	    completedLabel.setForeground(new Color(147,141,141));
-	    completedLabel.setBounds(330, 270, 400, 100);
+	    completedLabel.setBounds(330, 185, 400, 150);
 	    contentPane.add(completedLabel);
 	    JTextArea completedTransactions = new JTextArea();
 	    JScrollPane scroll1 = new JScrollPane (completedTransactions);
 		scroll1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-	    completedTransactions.setBounds(320, 340, 680, 100);
+	    completedTransactions.setBounds(320, 285, 680, 220);
 	    completedTransactions.setEditable(false);
-	    scroll1.setBounds(320, 340, 680, 100);
+	    scroll1.setBounds(320, 285, 680, 220);
 	    contentPane.add(scroll1);
 	    
 	    // DISPLAY PENDING AND COMPLETED TRANSACTIONS //
@@ -219,8 +218,8 @@ public class Activity extends JFrame {
 		try {
 			TransactionSearch pendTrans = new TransactionSearch();
 			TransactionSearch compTrans = new TransactionSearch();
-			pending = pendTrans.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/cashAppRequests.txt", tag, false, false);
-			completed = compTrans.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/cashAppPayments.txt", tag, false, false);
+			pending = pendTrans.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/cashAppRequests.txt", tag, false, false);
+			completed = compTrans.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/cashAppPayments.txt", tag, false, false);
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -277,7 +276,7 @@ public class Activity extends JFrame {
 	    		String information = "";
 	    		try {
 	    			FileSearch fs = new FileSearch();
-	    			information = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/accountCredentials.txt", receiverField.getText());
+	    			information = fs.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/accountCredentials.txt", receiverField.getText());
 	    		}
 	    		catch(IOException e){
 	    			e.printStackTrace();
@@ -313,8 +312,8 @@ public class Activity extends JFrame {
 					    		try {
 					    			TransactionSearch fs = new TransactionSearch();
 					    			TransactionSearch fs2 = new TransactionSearch();
-					    			transactionHistory = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/cashAppRequests.txt", tag, false, false);
-					    			requests = fs2.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numRequests.txt", tag, false, true);
+					    			transactionHistory = fs.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/cashAppRequests.txt", tag, false, false);
+					    			requests = fs2.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/numRequests.txt", tag, false, true);
 					    		}
 					    		catch(IOException e){
 					    			e.printStackTrace();
@@ -369,7 +368,7 @@ public class Activity extends JFrame {
 	    		String information = "";
 	    		try {
 	    			FileSearch fs = new FileSearch();
-	    			information = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/accountCredentials.txt", receiverField.getText());
+	    			information = fs.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/accountCredentials.txt", receiverField.getText());
 	    		}
 	    		catch(IOException e){
 	    			e.printStackTrace();
@@ -404,8 +403,8 @@ public class Activity extends JFrame {
 					    		try {
 					    			TransactionSearch fs = new TransactionSearch();
 					    			TransactionSearch fs2 = new TransactionSearch();
-					    			transactionHistory = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/cashAppPayments.txt", tag, false, false);
-					    			payments = fs2.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numPayments.txt", tag, true, false);
+					    			transactionHistory = fs.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/cashAppPayments.txt", tag, false, false);
+					    			payments = fs2.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/numPayments.txt", tag, true, false);
 					    		}
 					    		catch(IOException e){
 					    			e.printStackTrace();
@@ -451,7 +450,7 @@ public class Activity extends JFrame {
 			help.setForeground(new Color(101,210,69));
 			pendingLabel.setVisible(true);
 		    completedLabel.setVisible(true);
-		    searchField.setVisible(true);
+		    //searchField.setVisible(true);
 		    scroll.setVisible(true);
 		    scroll1.setVisible(true);
 		    receiverField.setVisible(false);
@@ -476,7 +475,7 @@ public class Activity extends JFrame {
 			    help.setForeground(new Color(101,210,69));
 			    pendingLabel.setVisible(false);
 			    completedLabel.setVisible(false);
-			    searchField.setVisible(false);
+			    //searchField.setVisible(false);
 			    scroll.setVisible(false);
 			    scroll1.setVisible(false);
 			    receiverField.setVisible(true);
@@ -502,7 +501,7 @@ public class Activity extends JFrame {
 			    help.setForeground(new Color(101,210,69));
 			    pendingLabel.setVisible(false);
 			    completedLabel.setVisible(false);
-			    searchField.setVisible(false);
+			    //searchField.setVisible(false);
 			    scroll.setVisible(false);
 			    scroll1.setVisible(false);
 			    receiverField.setVisible(false);
