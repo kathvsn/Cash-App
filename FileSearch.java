@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Enumeration;
 import java.util.Scanner;
-import java.util.Vector;
 
 public class FileSearch {
 	public static String returnInfo(String fileName,String searchStr) throws FileNotFoundException{
@@ -19,6 +17,7 @@ public class FileSearch {
 	            break;
 	        }
 	    }
+	    input.close();
 	    
 	    // return email or phone number if it exists
 	    return emailOrNum;
