@@ -30,7 +30,7 @@ public class forgotPassword extends JFrame {
 		getContentPane().setBackground(new Color(12, 182, 53));
 		
 		JLabel imagelabel = new JLabel();
-		imagelabel.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/CashAppImgs/CashAppLogo.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT)));
+		imagelabel.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/CashAppLogo.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT)));
 		imagelabel.setBounds(25, 5, 100, 100);
 		contentPane.add(imagelabel);
 		
@@ -132,7 +132,7 @@ public class forgotPassword extends JFrame {
 		    		String logInfo = tag.getText();
 		    		try {
 		    			FileSearch fs = new FileSearch();
-		    			information = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/accountCredentials.txt", logInfo);
+		    			information = fs.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/accountCredentials.txt", logInfo);
 		    		}
 		    		catch(IOException e){
 		    			e.printStackTrace();
