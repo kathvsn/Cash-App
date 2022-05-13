@@ -30,7 +30,7 @@ public class CreateAccount extends JFrame {
 		getContentPane().setBackground(new Color(12, 182, 53));
 		
 		JLabel imagelabel = new JLabel();
-		imagelabel.setIcon(new ImageIcon(new ImageIcon("/Users/alvin/Downloads/CashAppLogo.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT)));
+		imagelabel.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/CashAppLogo.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT)));
 		imagelabel.setBounds(25, 5, 100, 100);
 		contentPane.add(imagelabel);
 		
@@ -207,6 +207,9 @@ public class CreateAccount extends JFrame {
 		    	if(cardNumber.getText() == null || cardNumber.getText().length() == 0 || cardNumber.getText() == "") {
 		    		JOptionPane.showMessageDialog(null, "Card number field cannot be empty!", "Cash App", JOptionPane.WARNING_MESSAGE);
 		    	}
+		    	else if(cardNumber.getText().length() < 15 || cardNumber.getText().length() > 16) {
+		    		JOptionPane.showMessageDialog(null, "Card number invalid! Must be 15 or 16 digits!", "Cash App", JOptionPane.WARNING_MESSAGE);
+		    	}
 		    	else if(cardDate.getText() == null || cardDate.getText().length() == 0 || cardDate.getText() == "") {
 		    		JOptionPane.showMessageDialog(null, "Date field cannot be empty!", "Cash App", JOptionPane.WARNING_MESSAGE);
 		    	}
@@ -272,16 +275,27 @@ public class CreateAccount extends JFrame {
 		    		rePass.setText("");
 		    	}
 		    	else {
-		    		// convert char[] to string
-		    		String pword =  String.valueOf(pass.getPassword());
-		    		String quest = String.valueOf(questions.getSelectedItem());
-		    		// pass credentials to hash the password
-		    		passwordHash creds = new passwordHash(fName.getText(), lName.getText(), tag.getText(), emNum.getText(), cardNumber.getText(), quest, answer.getText(), pword);
-		    		fileIO fios = new fileIO("dataCashtags.txt");
-	    			fios.wrData(tag.getText() + "\n");
-			        Activity second = new Activity(fName.getText(), lName.getText(), tag.getText(),true);   
-			        setVisible(false); // Hide current frame
-			        second.setVisible(true);
+	    			boolean numericVal = false;
+	    			try {  
+	    				Integer.parseInt(cardNumber.getText());  
+	    				numericVal = true;
+	    			} catch(NumberFormatException e){  
+	    				JOptionPane.showMessageDialog(null, "Error! Not a numeric value!", "Cash App", JOptionPane.WARNING_MESSAGE);
+	    				cardNumber.setText("");
+	    				numericVal = false;
+	    			}
+	    			if(numericVal) {
+			    		// convert char[] to string
+			    		String pword =  String.valueOf(pass.getPassword());
+			    		String quest = String.valueOf(questions.getSelectedItem());
+			    		// pass credentials to hash the password
+			    		passwordHash creds = new passwordHash(fName.getText(), lName.getText(), tag.getText(), emNum.getText(), cardNumber.getText(), quest, answer.getText(), pword);
+			    		fileIO fios = new fileIO("dataCashtags.txt");
+		    			fios.wrData(tag.getText() + "\n");
+				        Activity second = new Activity(fName.getText(), lName.getText(), tag.getText(),true);   
+				        setVisible(false); // Hide current frame
+				        second.setVisible(true);
+	    			}
 		    	}
 		    }
 		});
