@@ -32,6 +32,7 @@ public class socketServer implements Runnable
 	   static int numOfMessages = 0;
 	   static int max_connections = 5;
 	   static int numOfTransactions = 0; 
+	   public String keyString;
 
 	   socketServer(Socket csocket, String ip)
 	   {
@@ -117,9 +118,9 @@ public class socketServer implements Runnable
 	   try
 	   {
 		  boolean session_done = false; 
-	      long threadId;
+		  long threadId;
 	      String clientString;
-	      String keyString = "";
+	      keyString = "";
 	    
 	      threadId = Thread.currentThread().getId();
 	      
@@ -175,7 +176,24 @@ public class socketServer implements Runnable
 	           	   session_done = true;
 	           	   continue;
 	              }
-
+	              // keep this if using same computer //
+	              
+	              /*if(clientString.contains("paid") || clientString.contains("requested") || clientString.contains("~")) {
+		            	 int counter = 0;
+		            	 numOfConnections--;
+		                 vec.remove(vec.indexOf(keyString));
+		                 serverSearch.bottom.setText("");
+		                 Enumeration<String> en = vec.elements();
+		                 while (en.hasMoreElements()){
+		 	        		serverSearch.bottom.append(en.nextElement() + "\r\n");
+		 	        		
+		 	        		if (++counter >= 6){
+		 	        			serverSearch.bottom.append("\r\n");
+		 	        			counter = 0;
+		 	        		}
+		 	        	}
+		                serverSearch.incoming.append("Num of Connections = " + numOfConnections);
+	              }*/
 	              if (clientString.contains("quit") || clientString.contains("QUIT") || clientString.contains("Quit"))
 	              {
 	            	 int counter = 0;
@@ -191,8 +209,6 @@ public class socketServer implements Runnable
 	 	        			counter = 0;
 	 	        		}
 	 	        	}
-	                 fileIO fio = new fileIO("serverBacklog.txt");
-	                 fio.wrData(serverSearch.incoming.getText());
 	              }
 	              else if (clientString.contains("Date>"))
 	              {
@@ -214,6 +230,8 @@ public class socketServer implements Runnable
 	            	//
 	            	pstream.println("Num Of Messages : " + numOfMessages + "   Simple Date: " + reportDate + newline);
 	              }
+	              
+	              // IF USING DIFFERENT COMPUTERS
 	              if(clientString.contains("paid")) {
 	            	  fileIO fio = new fileIO("cashAppPayments.txt");
 	            	  fio.wrData(clientString + "\n");
@@ -222,14 +240,30 @@ public class socketServer implements Runnable
 	              }
 	              
 	              if(clientString.contains("requested")) {
+	                serverSearch.incoming.append("Num of Connections = " + numOfConnections);
 	            	  fileIO fio2 = new fileIO("cashAppRequests.txt");
 	            	  fio2.wrData(clientString + "\n");
 	            	  reqStr = clientString;
 	            	  requested = true;
 	              }
 	              
-	              if(clientString.contains("~")) {
-	            	  String[] tag =  clientString.split("~");
+	              
+	              if(clientString.contains("/")) {
+		            	 int counter = 0;
+		            	 numOfConnections--;
+		                 vec.remove(vec.indexOf(keyString));
+		                 serverSearch.bottom.setText("");
+		                 Enumeration<String> en = vec.elements();
+		                 while (en.hasMoreElements()){
+		 	        		serverSearch.bottom.append(en.nextElement() + "\r\n");
+		 	        		
+		 	        		if (++counter >= 6){
+		 	        			serverSearch.bottom.append("\r\n");
+		 	        			counter = 0;
+		 	        		}
+		 	        	}
+		                serverSearch.incoming.append("Num of Connections = " + numOfConnections);
+	            	  String[] tag =  clientString.split("/");
 	            	  if(requested == true) {
 	            		  String msR = " " + tag[0] + "_REQUEST";
 	            		  reqStr = reqStr + msR;
@@ -243,6 +277,13 @@ public class socketServer implements Runnable
 				    	  fileIO fioP = new fileIO("numPayments.txt");
 				    	  fioP.wrData(payStr + "\n");
 				    	  paid = false;
+				    	  
+			    			fileIO fio3 = new fileIO("userSent.txt");
+			    			fileIO fio4 = new fileIO("userRcv.txt");
+			    			String sent = tag[0] + ":" + tag[1];
+			    			String rcv = tag[2] + ":" + tag[1];
+			    			fio3.wrData(sent);
+			    			fio4.wrData(rcv);
 	            	  }
 			    	  
 				      reqStr = "";
@@ -255,9 +296,9 @@ public class socketServer implements Runnable
 			    			TransactionSearch fs = new TransactionSearch();
 			    			TransactionSearch fs2 = new TransactionSearch();
 			    			TransactionSearch fs3 = new TransactionSearch();
-			    			transactionHistory = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/cashAppRequests.txt", tag[0], false, false);
-			    			requests = fs2.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numRequests.txt", tag[0], false, true);
-			    			payments = fs3.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numPayments.txt", tag[0], true, false);
+			    			transactionHistory = fs.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/cashAppRequests.txt", tag[0], false, false);
+			    			requests = fs2.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/numRequests.txt", tag[0], false, true);
+			    			payments = fs3.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/numPayments.txt", tag[0], true, false);
 			    		}
 			    		catch(IOException e){
 			    			e.printStackTrace();
@@ -311,10 +352,16 @@ public class socketServer implements Runnable
 	     }     
 	     catch (Exception e)
 	     { 
-		  numOfConnections--;
-		  
+	    	 if(numOfConnections-1 >= 0) {
+	    		 numOfConnections--;
+	    	 };
+	    	 
+	    	 serverSearch.bottom.setText("");
+	    	 serverSearch.bottom.append(vec.get(0));
+
 		  // update the status text area to show progress of program
-		  serverSearch.incoming.append("ERROR : Generic Exception!" + newline);
+		  //serverSearch.incoming.append("ERROR : Generic Exception!" + newline);
+		  serverSearch.incoming.append("Num of Connections = " + numOfConnections);
 	     }
 	   
 	  }  // end run() thread method
