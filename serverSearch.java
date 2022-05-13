@@ -37,7 +37,7 @@ public class serverSearch extends JFrame {
 		contentPane.add(titleLabel);
 		
 		JLabel imagelabel = new JLabel();
-		imagelabel.setIcon(new ImageIcon(new ImageIcon("/Users/kathytran/Downloads/CashAppImgs/CashAppLogo.png").getImage().getScaledInstance(65,65, Image.SCALE_DEFAULT)));
+		imagelabel.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/CashAppLogo.png").getImage().getScaledInstance(65,65, Image.SCALE_DEFAULT)));
 		imagelabel.setBounds(340,20,100,40);
 		contentPane.add(imagelabel);
 	    
@@ -66,34 +66,32 @@ public class serverSearch extends JFrame {
 		displayIP.setEditable(false);
 		displayIP.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		contentPane.add(displayIP);
-	 
-	    // search bar: filter activity
-	    JTextField searchField = new JTextField("Search for user (Name, Cashtag, Email, Phone Number)");
-	    searchField.setToolTipText("Search for user (Name, Cashtag, Email, Phone Number)");
-	    searchField.setBounds(10, 135, 530, 40);
-	    contentPane.add(searchField);
+
 	   
 	    // display users
 		JTextArea userList = new JTextArea();
-		userList.setBounds(10, 180, 680, 180);
+		userList.setBounds(10, 160, 700, 180);
 		userList.setEditable(false);
 		userList.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		contentPane.add(userList);
-		
+	    JScrollPane scrolls = new JScrollPane (userList);
+		scrolls.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrolls.setBounds(10, 160, 700, 180);
+	    contentPane.add(scrolls);
 		
 		// display incoming requests/msgs
 		incoming = new JTextArea();
-		incoming.setBounds(10, 370, 680, 140);
+		incoming.setBounds(10, 370, 700, 140);
 		incoming.setEditable(false);
 		incoming.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		JScrollPane scroll = new JScrollPane (incoming);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setBounds(10, 370, 680, 140);
+		scroll.setBounds(10, 370, 700, 140);
 		contentPane.add(scroll);
         
         // bottom area displays IP addresses connected 
         bottom = new JTextArea();
-		bottom.setBounds(710, 135, 250, 375);
+		bottom.setBounds(740, 155, 230, 375);
 		bottom.setEditable(false);
 		bottom.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		contentPane.add(bottom);
@@ -122,16 +120,18 @@ public class serverSearch extends JFrame {
 		searchButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
 				userList.setText("");
-				userList.append("$Cashtag\t|\tNum of Requests\t|\tNum of Payments\r\n");
-				userList.append("------------------------------------------------------------------------------\n");
+				userList.append("$Cashtag      |     Num of Requests     |      Num of Payments     |     Amt Sent     |    Amt Received\r\n");
+				userList.append("--------------------------------------------------------------------------------\n");
 				Vector<String> dataUser = new Vector<>();
 				Vector<String> reqs = new Vector<>();
 				Vector<String> paid = new Vector<>();
+				Double sentAmt = 0.0;
+				Double rcvAmt = 0.0;
 				String curr = "";
 				
 				try {
 					TransactionSearch fs = new TransactionSearch();
-					dataUser = fs.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/dataCashtags.txt", "$", false, false);
+					dataUser = fs.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/dataCashtags.txt", "$", false, false);
 				}
 				catch(IOException e){
 					e.printStackTrace();
@@ -142,32 +142,69 @@ public class serverSearch extends JFrame {
 						// get requests
 						try {
 							TransactionSearch fs1 = new TransactionSearch();
-							reqs = fs1.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numRequests.txt", String.valueOf(dataUser.get(i)), false, true);
+							reqs = fs1.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/numRequests.txt", String.valueOf(dataUser.get(i)), false, true);
 						}
 						catch(IOException e){
 							e.printStackTrace();
 						}
 						if(!(reqs.isEmpty())) {
-							curr = curr + "\t\t" + reqs.size();
+							curr = curr + "\t" + reqs.size();
 						}
 						else {
-							curr = curr + "\t\t" + "0";
-						}
+							curr = curr + "\t" + "0";
+						} 
 						
 						// get number of payments
 						try {
 							TransactionSearch fs2 = new TransactionSearch();
-							paid = fs2.returnInfo("/Users/kathytran/eclipse-workspace/Cash App/numPayments.txt", String.valueOf(dataUser.get(i)), true, false);
+							paid = fs2.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/numPayments.txt", String.valueOf(dataUser.get(i)), true, false);
 						}
 						catch(IOException e){
 							e.printStackTrace();
 						}
 						
 						if(!(paid.isEmpty())) {
-							curr = curr + "\t\t\t" + paid.size();
+							curr = curr + "\t\t" + paid.size();
 						}
 						else {
-							curr = curr + "\t\t\t" + "0";
+							curr = curr + "\t\t" + "0";
+						}
+						
+						
+						// get amount of money user sent
+						try {
+							parseAmount prSent = new parseAmount();
+							sentAmt = prSent.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/userSent.txt", String.valueOf(dataUser.get(i)));
+						}
+						catch(IOException e){
+							sentAmt = 0.0;
+							e.printStackTrace();
+						}
+						
+						if(sentAmt > 0.00) {
+							String s = String.valueOf(sentAmt);
+							curr = curr + "\t      " + s;
+						}
+						else {
+							curr = curr + "\t      " + "0.00";
+						}
+						
+						// get amount of money user received
+						try {
+							parseAmount prRcv = new parseAmount();
+							rcvAmt = prRcv.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/userRcv.txt", String.valueOf(dataUser.get(i)));
+						}
+						catch(IOException e){
+							rcvAmt = 0.0;
+							e.printStackTrace();
+						}
+						
+						if(rcvAmt > 0.00) {
+							String r = String.valueOf(rcvAmt);
+							curr = curr + "\t         " + r;
+						}
+						else {
+							curr = curr + "\t         " + "0.00";
 						}
 						
 						userList.append(curr + "\r\n");
@@ -178,7 +215,7 @@ public class serverSearch extends JFrame {
 				
 			}
 		});
-		searchButton.setBounds(550, 135, 130, 40);
+		searchButton.setBounds(170, 520, 110, 30);
 		searchButton.setBorderPainted(false);
 		searchButton.setOpaque(true);
 		searchButton.setBackground(new Color(28,236,79));
