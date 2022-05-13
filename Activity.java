@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Vector;
 import java.util.Enumeration;
+import java.text.DateFormat;  
+import java.text.SimpleDateFormat;  
+import java.util.Date;  
+import java.util.Calendar; 
+
 import javax.swing.*;
 
 public class Activity extends JFrame {
@@ -14,6 +19,8 @@ public class Activity extends JFrame {
 	
 	public static socketUtils test;
 	public boolean immediateQuit = false;
+	public String emailNumber = "";
+	public String card = "";
 	
 	public Activity(String firstN, String lastN, String tag, boolean connect){
 
@@ -55,7 +62,8 @@ public class Activity extends JFrame {
 		    	}
 		    }
 		});
-		 
+		
+	    
 		// green side panel
 		JPanel greenPanel = new JPanel();
 	    greenPanel.setBackground(new Color(12, 182, 53));
@@ -90,7 +98,7 @@ public class Activity extends JFrame {
 	    // cashtag
 	    JLabel cashTag = new JLabel(tag);
 	    cashTag.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
-	    cashTag.setBounds(125, 200, 200, 20);
+	    cashTag.setBounds(130, 200, 200, 20);
 	    cashTag.setForeground(Color.WHITE);
 	    greenPanel.add(cashTag);
 	    
@@ -107,7 +115,7 @@ public class Activity extends JFrame {
 		activityImgGr.setVisible(false);
 		
 	    JButton activity = new JButton("Activity");
-	    activity.setBounds(20, 250, 200, 25);
+	    activity.setBounds(25, 250, 200, 25);
 	    activity.setBorderPainted(false);
 	    activity.setOpaque(false);
         activity.setBackground(new Color(28,255,79));
@@ -118,7 +126,7 @@ public class Activity extends JFrame {
 	    // transaction icon
 		JLabel transactionImg = new JLabel();
 		transactionImg.setIcon(new ImageIcon(new ImageIcon("C:/Users/tomto/Downloads/Cashapplogos/WHITESETTINGS.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
-		transactionImg.setBounds(24, 300, 25, 25);
+		transactionImg.setBounds(30, 300, 25, 25);
 		greenPanel.add(transactionImg);
 		transactionImg.setVisible(false);
 		
@@ -128,7 +136,7 @@ public class Activity extends JFrame {
 		greenPanel.add(transactionImgGr);
 		
         JButton newTrans = new JButton("New Transaction");
-        newTrans.setBounds(45, 300, 240, 25);
+        newTrans.setBounds(55, 300, 240, 25);
         newTrans.setBorderPainted(false);
         newTrans.setOpaque(false);
         newTrans.setBackground(new Color(28,255,79));
@@ -178,12 +186,6 @@ public class Activity extends JFrame {
         help.setForeground(new Color(101,210,69));
         greenPanel.add(help);
         
-//	    // search bar: filter activity
-//	    JTextField searchField = new JTextField();
-//	    searchField.setToolTipText("Search for previous transactions.");
-//	    searchField.setBounds(320, 5, 680, 80);
-//	    contentPane.add(searchField);
-	    
 	    // pending label + uneditable text field
 	    JLabel pendingLabel = new JLabel("PENDING");
 	    pendingLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
@@ -297,15 +299,18 @@ public class Activity extends JFrame {
 				    	// send message to server
 				    	if(result == JOptionPane.OK_OPTION){
 				    		immediateQuit = true;
-					    	test = new socketUtils();
 				    		boolean connected = test.socketConnect();
+				    		Date date = Calendar.getInstance().getTime();  
+				    		DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");  
+				    		String strDate = dateFormat.format(date);  
 				    		if(connected) {
 				    			String reqMsg = tag + " requested $" + amountField.getText() + " from " + receiverField.getText();
+				    			String dateMsg1 = strDate + " | " + reqMsg;
 				    			String ms = " " + tag + "_REQUEST";
 				    			String pMsg = tag + " requested $" + amountField.getText() + " from " + receiverField.getText() + ms;
 				    			fileIO fio = new fileIO("cashAppRequests.txt");
 				    			fileIO fio2 = new fileIO("numRequests.txt");
-				    			fio.wrData(reqMsg);
+				    			fio.wrData(dateMsg1);
 				    			fio2.wrData(pMsg);
 				    			Vector<String> transactionHistory = new Vector<>();
 				    			Vector<String> requests = new Vector<>();
@@ -328,17 +333,14 @@ public class Activity extends JFrame {
 	
 				    			test.sendMessage(reqMsg);
 				    			// test for updating server on diff computer
-				    			test.sendMessage(tag + "~");
-				    			test.sendMessage("QUIT");
+				    			test.sendMessage(tag + "/");
+				    			//test.sendMessage("QUIT");
 				    			// end test
 				    			amountField.setText("");
 				    			receiverField.setText("$Cashtag, Email, or Mobile Number");
 				    		}
 				    		
-				    		if(immediateQuit) {
-				    			test.sendMessage("QUIT");
-				    			immediateQuit = false;
-				    		}
+				    		
 	    				}
 		    		}
 	    		}
@@ -388,22 +390,41 @@ public class Activity extends JFrame {
 				    	// send message to server
 				    	if(result == JOptionPane.OK_OPTION){
 				    		immediateQuit = true;
-					    	test = new socketUtils();
 				    		boolean connected = test.socketConnect();
+				    		Date date = Calendar.getInstance().getTime();  
+				    		DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");  
+				    		String strDate = dateFormat.format(date);  
 				    		if(connected) {
 				    			String reqMsg = tag + " paid $" + amountField.getText() + " to " + receiverField.getText();
+				    			String dateMsg = strDate + " | " + reqMsg;
 				    			String ms = " " + tag + "_PAYMENT";
 				    			String pMsg = tag + " paid $" + amountField.getText() + " to " + receiverField.getText() + ms;
+				    			String sent = tag + ":" + amountField.getText();
+				    			String rcv = receiverField.getText() + ":" + amountField.getText();
 				    			fileIO fio = new fileIO("cashAppPayments.txt");
 				    			fileIO fio2 = new fileIO("numPayments.txt");
-				    			fio.wrData(reqMsg);
+				    			fileIO fio3 = new fileIO("userSent.txt");
+				    			fileIO fio4 = new fileIO("userRcv.txt");
+				    			fio.wrData(dateMsg);
 				    			fio2.wrData(pMsg);
+				    			fio3.wrData(sent);
+				    			fio4.wrData(rcv);
+				    			try {
+					    			updateText reqUpdate = new updateText();
+					    			reqUpdate.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/cashAppRequests.txt", amountField.getText());
+				    			}
+				    			catch(IOException e){
+					    			e.printStackTrace();
+					    		}
 				    			Vector<String> transactionHistory = new Vector<>();
+				    			Vector<String> reqHistory = new Vector<>();
 				    			Vector<String> payments = new Vector<>();
 					    		try {
 					    			TransactionSearch fs = new TransactionSearch();
 					    			TransactionSearch fs2 = new TransactionSearch();
+					    			TransactionSearch fs3 = new TransactionSearch();
 					    			transactionHistory = fs.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/cashAppPayments.txt", tag, false, false);
+					    			reqHistory = fs3.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/cashAppRequests.txt", tag, false, false);
 					    			payments = fs2.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/numPayments.txt", tag, true, false);
 					    		}
 					    		catch(IOException e){
@@ -417,19 +438,27 @@ public class Activity extends JFrame {
 					    			}
 					    		}
 	
+					    		// update pending transactions (requests)
+					    		if(!(reqHistory.isEmpty())) {
+					    			Enumeration enu1 = reqHistory.elements();
+					    			pendingTransactions.setText("");
+					    			while (enu1.hasMoreElements()) {
+					    				pendingTransactions.append(enu1.nextElement() + "\r\n");
+					    			}
+					    		}
+					    		else if(reqHistory.isEmpty()) {
+					    			pendingTransactions.setText("");
+					    		}
+					    		
 				    			test.sendMessage(reqMsg);
 				    			// test for updating server on diff computer
-				    			test.sendMessage(tag + "~");
-				    			test.sendMessage("QUIT");
+				    			test.sendMessage(tag + "/"+ amountField.getText() + "/" + receiverField.getText());
+				    			//test.sendMessage("QUIT");
 				    			// end test
 				    			amountField.setText("");
 				    			receiverField.setText("$Cashtag, Email, or Mobile Number");
 				    		}
 				    		
-				    		if(immediateQuit) {
-				    			test.sendMessage("QUIT");
-				    			immediateQuit = false;
-				    		}
 				    	}
 	    			}
 	    		}
@@ -440,6 +469,131 @@ public class Activity extends JFrame {
 		    }
 		});
         
+		// SETTINGS//
+		String information = "";
+		String logInfo = tag;
+
+		try {
+			FileSearch fs = new FileSearch();
+			information = fs.returnInfo("C:/Users/tomto/eclipse-workspace/FinalProject/accountCredentials.txt", logInfo);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		
+		if(information != "") {
+    		String[] userInfo =  information.split(":");
+    		emailNumber = String.valueOf(userInfo[3]);
+    		card = String.valueOf(userInfo[4]);
+		}
+		
+	    JLabel firstNameLab = new JLabel("First Name");
+	    firstNameLab.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 25));
+	    firstNameLab.setForeground(new Color(147,141,141));
+	    firstNameLab.setBounds(450, 40, 200, 60);
+	    contentPane.add(firstNameLab);  
+	    
+		JTextField fNField = new JTextField(firstN);
+		fNField.setToolTipText("Edit your first name.");
+		fNField.setBounds(450, 90, 200, 40);
+		contentPane.add(fNField);
+	    
+	    JLabel lastNameLab = new JLabel("Last Name");
+	    lastNameLab.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 25));
+	    lastNameLab.setForeground(new Color(147,141,141));
+	    lastNameLab.setBounds(650, 40, 200, 60);
+	    contentPane.add(lastNameLab);
+	    
+		JTextField lNField = new JTextField(lastN);
+		lNField.setToolTipText("Edit your last name.");
+		lNField.setBounds(650, 90, 200, 40);
+		contentPane.add(lNField);
+	    
+	    JLabel emailNumLab = new JLabel("Email or Mobile Number");
+	    emailNumLab.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 25));
+	    emailNumLab.setForeground(new Color(147,141,141));
+	    emailNumLab.setBounds(500, 150, 300, 60);
+	    contentPane.add(emailNumLab);
+	    
+		JTextField eNField = new JTextField(emailNumber);
+		eNField.setToolTipText("Edit your sign in method.");
+		eNField.setBounds(500, 200, 300, 40);
+		contentPane.add(eNField);
+		
+	    JLabel cardNum = new JLabel("Card Number");
+	    cardNum.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 25));
+	    cardNum.setForeground(new Color(147,141,141));
+	    cardNum.setBounds(500, 250, 300, 60);
+	    contentPane.add(cardNum);
+	    
+		JTextField cardField = new JTextField(card);
+		cardField.setToolTipText("Edit your sign in method.");
+		cardField.setBounds(500, 300, 300, 40);
+		contentPane.add(cardField);
+	    
+		fNField.setVisible(false);
+		lNField.setVisible(false);
+		eNField.setVisible(false);
+		cardField.setVisible(false);
+	    cardNum.setVisible(false);
+	    emailNumLab.setVisible(false);
+	    firstNameLab.setVisible(false);
+	    lastNameLab.setVisible(false);
+	    
+	    // save user settings 
+		JButton saveChanges = new JButton("Save Changes");
+		saveChanges.setBounds(370, 525, 200, 30);
+		saveChanges.setBorderPainted(false);
+		saveChanges.setOpaque(true);
+		saveChanges.setBackground(new Color(28,236,79));
+		saveChanges.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
+		saveChanges.setForeground(Color.WHITE);
+		contentPane.add(saveChanges);
+		saveChanges.setVisible(false);
+		
+	    // confirm and verify changes
+		saveChanges.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent arg0) {
+		    	if(cardField.getText() == null || cardField.getText().length() == 0 || cardField.getText() == "") {
+		    		JOptionPane.showMessageDialog(null, "Card number field cannot be empty!", "Cash App", JOptionPane.WARNING_MESSAGE);
+		    	}
+		    	else if(cardField.getText().length() < 15 || cardField.getText().length() > 16) {
+		    		JOptionPane.showMessageDialog(null, "Card number invalid! Must be 15 or 16 digits!", "Cash App", JOptionPane.WARNING_MESSAGE);
+		    	}
+		    	else if(fNField.getText() == null || fNField.getText().length() == 0 || fNField.getText() == "") {
+		    		JOptionPane.showMessageDialog(null, "First name field cannot be empty!", "Cash App", JOptionPane.WARNING_MESSAGE);
+		    	}
+		    	else if(lNField.getText() == null || lNField.getText().length() == 0 || lNField.getText() == "") {
+		    		JOptionPane.showMessageDialog(null, "Last name field cannot be empty!", "Cash App", JOptionPane.WARNING_MESSAGE);
+		    	}
+		    	else if(eNField.getText() == null || eNField.getText().length() == 0 || eNField.getText() == "") {
+		    		JOptionPane.showMessageDialog(null, "Email or mobile number field cannot be empty!", "Cash App", JOptionPane.WARNING_MESSAGE);
+		    	}
+		    	else {
+
+	    		        try {
+	    		    	    rewriteLine res = new rewriteLine();
+	    		    	    res.rewriteLn("C:/Users/tomto/eclipse-workspace/FinalProject/accountCredentials.txt", firstN, fNField.getText());
+	    		    	    res.rewriteLn("C:/Users/tomto/eclipse-workspace/FinalProject/accountCredentials.txt", lastN, lNField.getText());
+	    		    	    res.rewriteLn("C:/Users/tomto/eclipse-workspace/FinalProject/accountCredentials.txt", emailNumber, eNField.getText());
+	    		    	    res.rewriteLn("C:/Users/tomto/eclipse-workspace/FinalProject/accountCredentials.txt", card, cardField.getText());
+	    		    	    
+	    		    	    disName.setText(fNField.getText() + " " + lNField.getText());
+	    		    	    char ch2 = fNField.getText().charAt(0);
+	    		    	    String ini = String.valueOf(ch2);
+	    		    	    userInitial.setText(ini);
+	    		    	    
+	    		        } 
+	    		    	catch(IOException e){
+	    		    		e.printStackTrace();
+	    		    	}
+	    			
+		    	}
+		    	
+
+		    }
+		});
+	    
         // active button is highlighted in white while the rest are light green
         activity.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
@@ -450,7 +604,6 @@ public class Activity extends JFrame {
 			help.setForeground(new Color(101,210,69));
 			pendingLabel.setVisible(true);
 		    completedLabel.setVisible(true);
-		    //searchField.setVisible(true);
 		    scroll.setVisible(true);
 		    scroll1.setVisible(true);
 		    receiverField.setVisible(false);
@@ -464,6 +617,15 @@ public class Activity extends JFrame {
 		    transactionImg.setVisible(false);
 		    settingsImgGr.setVisible(true);
 		    settingsImg.setVisible(false);
+			fNField.setVisible(false);
+			lNField.setVisible(false);
+			eNField.setVisible(false);
+			cardField.setVisible(false);
+		    cardNum.setVisible(false);
+		    emailNumLab.setVisible(false);
+		    firstNameLab.setVisible(false);
+		    lastNameLab.setVisible(false);
+		    saveChanges.setVisible(false);
 			    
 		}
 	});
@@ -475,7 +637,6 @@ public class Activity extends JFrame {
 			    help.setForeground(new Color(101,210,69));
 			    pendingLabel.setVisible(false);
 			    completedLabel.setVisible(false);
-			    //searchField.setVisible(false);
 			    scroll.setVisible(false);
 			    scroll1.setVisible(false);
 			    receiverField.setVisible(true);
@@ -489,7 +650,15 @@ public class Activity extends JFrame {
 			    transactionImg.setVisible(true);
 			    settingsImgGr.setVisible(true);
 			    settingsImg.setVisible(false);
-			    
+				fNField.setVisible(false);
+				lNField.setVisible(false);
+				eNField.setVisible(false);
+				cardField.setVisible(false);
+			    cardNum.setVisible(false);
+			    emailNumLab.setVisible(false);
+			    firstNameLab.setVisible(false);
+			    lastNameLab.setVisible(false);
+			    saveChanges.setVisible(false);
 		    }
 		});
         settings.addActionListener(new ActionListener() {
@@ -501,7 +670,6 @@ public class Activity extends JFrame {
 			    help.setForeground(new Color(101,210,69));
 			    pendingLabel.setVisible(false);
 			    completedLabel.setVisible(false);
-			    //searchField.setVisible(false);
 			    scroll.setVisible(false);
 			    scroll1.setVisible(false);
 			    receiverField.setVisible(false);
@@ -515,7 +683,15 @@ public class Activity extends JFrame {
 			    transactionImg.setVisible(false);
 			    settingsImgGr.setVisible(false);
 			    settingsImg.setVisible(true);
-			
+				fNField.setVisible(true);
+				lNField.setVisible(true);
+				eNField.setVisible(true);
+				cardField.setVisible(true);
+			    cardNum.setVisible(true);
+			    emailNumLab.setVisible(true);
+			    firstNameLab.setVisible(true);
+			    lastNameLab.setVisible(true);
+			    saveChanges.setVisible(true);
 			    
 		    }
 		});
