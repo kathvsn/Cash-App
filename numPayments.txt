@@ -1,0 +1,14 @@
+$kathytran paid $90.34 to $janedoe01 $kathytran_PAYMENT
+$kathytran paid $30.00 to $janedoe01 $kathytran_PAYMENT
+$tbrown paid $59.00 to $janedoe01 $tbrown_PAYMENT
+$tbrown paid $10.09 to $bobsmith $tbrown_PAYMENT
+$janedoe01 paid $30.45 to $kathytran $janedoe01_PAYMENT
+$kathytran paid $13.77 to $angelgil $kathytran_PAYMENT
+$kathytran paid $10.44 to $tbrown $kathytran_PAYMENT
+$kathytran paid $13.22 to $tabrown $kathytran_PAYMENT
+$angelgil paid $44.22 to $kathytran $angelgil_PAYMENT
+$kathytran paid $3.45 to $tabrown $kathytran_PAYMENT
+$tabrown paid $2.33 to $kathytran $tabrown_PAYMENT
+$kathytran paid $2.75 to $tabrown $kathytran_PAYMENT
+$kathytran paid $10.45 to $agarcia $kathytran_PAYMENT
+$kathytran paid $25.45 to $tbrown $kathytran_PAYMENT

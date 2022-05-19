@@ -1,0 +1,13 @@
+05-13-2022 05:50:55 | $kathytran paid $90.34 to $janedoe01
+05-13-2022 06:11:10 | $kathytran paid $30.00 to $janedoe01
+05-13-2022 07:35:22 | $tbrown paid $59.00 to $janedoe01
+05-13-2022 07:35:56 | $tbrown paid $10.09 to $bobsmith
+05-13-2022 13:03:11 | $kathytran paid $13.77 to $angelgil
+05-13-2022 13:05:37 | $kathytran paid $10.44 to $tbrown
+05-13-2022 13:08:39 | $kathytran paid $13.22 to $tabrown
+05-13-2022 13:13:13 | $angelgil paid $44.22 to $kathytran
+05-13-2022 13:21:26 | $kathytran paid $3.45 to $tabrown
+05-13-2022 13:21:56 | $tabrown paid $2.33 to $kathytran
+05-13-2022 13:42:36 | $kathytran paid $2.75 to $tabrown
+05-13-2022 13:55:35 | $kathytran paid $10.45 to $agarcia
+05-13-2022 13:58:35 | $kathytran paid $25.45 to $tbrown
